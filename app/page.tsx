@@ -1,72 +1,168 @@
+import HomeSidebar from "@/components/HomeSidebar"
+import TeamCard from "@/components/TeamCard"
 import Container from "@/components/ui/container"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-const user = {
-  "name" : "Zack",
-  "role" : "Developer",
-  "status": "Agent"
+import { teams } from "@/lib/data"
+
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Simplified Homepage',
 }
 
 export default function Home() {
   return (
-    <Container>
-      <div className="flex flex-row">
-        <div className="basis-1/4 relative px-4 pt-12 sm:px-6 lg:px-8 flex flex-col items-start h-full justify-between w-full border-r">
-          <h1 className="flex-1 font-poppins font-semibold ss:text-[60px] text-[32px] ss:leading-[75px] leading-[40px]">
-            Hello {" "}
-            <span className="text-gradient">{user.name}!</span>
-          </h1>
-          <h2 className="font-poppins ss:text-[50px] text-[20px] ss:leading-[50px] leading-[30px]">
-            Let's get to work...
-          </h2>
-        </div>
+          <div className="h-full px-4 py-6 lg:px-8">
+            <Tabs defaultValue="resume" className="h-full space-y-6">
+              <div className="space-between flex items-center">
+                <TabsList>
+                  <TabsTrigger value="resume" className="relative">
+                    Resume
+                  </TabsTrigger>
+                  <TabsTrigger value="teams">
+                    Teams
+                  </TabsTrigger>
+                  <TabsTrigger value="layouts">
+                    Layouts
+                  </TabsTrigger>
+                  <TabsTrigger value="plans">
+                    Plans
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+              {/* RESUME TAB */}
+                <TabsContent value="resume" className="border-none p-0 outline-none">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <h2 className="text-2xl font-semibold tracking-tight">
+                      Jump right back in
+                    </h2>
+                    <p className="text-sm text-muted-foreground">
+                      Continue where you left off
+                    </p>
+                  </div>
+                </div>
+                <Separator className="my-4" />
+                <div className="relative">
+                  <ScrollArea>
+                    <div className="flex space-x-4 pb-4">
+                      {/* {listenNowAlbums.map((album) => (
+                        <AlbumArtwork
+                          key={album.name}
+                          album={album}
+                          className="w-[250px]"
+                          aspectRatio="portrait"
+                          width={250}
+                          height={330}
+                        />
+                      ))} */}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                  </ScrollArea>
+                </div>
 
+                </TabsContent>
 
-        <div className="basis-3/4 overflow-scroll overflow-x-auto">
-        <div className="relative px-4 pt-12 sm:px-6 lg:px-8 flex flex-col items-start h-full justify-between w-full border-r">
+              {/* TEAMS TAB */}
+              <TabsContent value="teams" className="border-none p-0 outline-none">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <h2 className="text-2xl font-semibold tracking-tight">
+                      Your teams
+                    </h2>
+                    <p className="text-sm text-muted-foreground">
+                      Manage and prepare Carriers
+                    </p>
+                  </div>
+                </div>
+                <Separator className="my-4" />
+                <div className="relative">
+                  <ScrollArea>
+                    <div className="flex space-x-4 pb-4">
+                      {teams.map((team, i) => (
+                        <TeamCard 
+                          key={i}
+                          data={team}
+                          
+                        />
+                      ))}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                  </ScrollArea>
+                </div>
 
-          <div className="flex-col bg-black-gradient-2 w-[700px] h-[250px] rounded-sm p-4 my-4">
-            <h2 className="flex-1 font-poppins font-semibold ss:text-[60px] text-[32px] ss:leading-[75px] leading-[40px]">
-              Jump {" "}
-              <span className="text-gradient-blue">back in</span>
-            </h2>
-            <h4 className="font-poppins ss:text-[50px] text-[20px] ss:leading-[50px] leading-[30px]">
-              Continue where you left off
-            </h4>
+                </TabsContent>
+
+                {/* LAYOUTS TAB */}
+                <TabsContent value="layouts" className="border-none p-0 outline-none">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <h2 className="text-2xl font-semibold tracking-tight">
+                      Your layouts
+                    </h2>
+                    <p className="text-sm text-muted-foreground">
+                      Map out and strategize locations
+                    </p>
+                  </div>
+                </div>
+                <Separator className="my-4" />
+                <div className="relative">
+                  <ScrollArea>
+                    <div className="flex space-x-4 pb-4">
+                      {/* {listenNowAlbums.map((album) => (
+                        <AlbumArtwork
+                          key={album.name}
+                          album={album}
+                          className="w-[250px]"
+                          aspectRatio="portrait"
+                          width={250}
+                          height={330}
+                        />
+                      ))} */}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                  </ScrollArea>
+                </div>
+
+                </TabsContent>
+
+                {/* PLANS TAB */}
+                <TabsContent value="plans" className="border-none p-0 outline-none">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <h2 className="text-2xl font-semibold tracking-tight">
+                      Your plans
+                    </h2>
+                    <p className="text-sm text-muted-foreground">
+                      Time to deploy and execute
+                    </p>
+                  </div>
+                </div>
+                <Separator className="my-4" />
+                <div className="relative">
+                  <ScrollArea>
+                    <div className="flex space-x-4 pb-4">
+                      {/* {listenNowAlbums.map((album) => (
+                        <AlbumArtwork
+                          key={album.name}
+                          album={album}
+                          className="w-[250px]"
+                          aspectRatio="portrait"
+                          width={250}
+                          height={330}
+                        />
+                      ))} */}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                  </ScrollArea>
+                </div>
+
+                </TabsContent>
+
+            </Tabs>
           </div>
-
-          <div className="flex-col bg-black-gradient-2 w-[700px] h-[250px] rounded-sm p-4 my-4">
-            <h2 className="flex-1 font-poppins font-semibold ss:text-[60px] text-[32px] ss:leading-[75px] leading-[40px]">
-              Your {" "}
-              <span className="text-gradient-green">Teams</span>
-            </h2>
-            <h4 className="font-poppins ss:text-[50px] text-[20px] ss:leading-[50px] leading-[30px]">
-              All deployed teams
-            </h4>
-          </div>
-
-          <div className="flex-col bg-black-gradient-2 w-[700px] h-[250px] rounded-sm p-4 my-4">
-            <h2 className="flex-1 font-poppins font-semibold ss:text-[60px] text-[32px] ss:leading-[75px] leading-[40px]">
-              Your {" "}
-              <span className="text-gradient-yellow">Layouts</span>
-            </h2>
-            <h4 className="font-poppins ss:text-[50px] text-[20px] ss:leading-[50px] leading-[30px]">
-              Locations visualized
-            </h4>
-          </div>
-
-          <div className="flex-col bg-black-gradient-2 w-[700px] h-[250px] rounded-sm p-4 my-4">
-            <h2 className="flex-1 font-poppins font-semibold ss:text-[60px] text-[32px] ss:leading-[75px] leading-[40px]">
-              Your {" "}
-              <span className="text-gradient-red">Plans</span>
-            </h2>
-            <h4 className="font-poppins ss:text-[50px] text-[20px] ss:leading-[50px] leading-[30px]">
-              3...2...1... Execute
-            </h4>
-          </div>
-
-        </div>
-        </div>
-      </div>
-    </Container>
   )
 }

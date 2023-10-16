@@ -3,6 +3,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Header from '@/components/Header'
+import HomeSidebar from '@/components/HomeSidebar'
+import Container from '@/components/ui/container'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +23,15 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <Header/>
-          {children}
+          <Container>
+            <div className="grid lg:grid-cols-5">
+              <HomeSidebar/>
+              <div className="col-span-4 lg:col-span-4 lg:border-l">
+                {children}
+              </div>
+            </div>
+          </Container>
+
         </ThemeProvider>
       </body>
     </html>
