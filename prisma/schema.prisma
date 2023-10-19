@@ -9,7 +9,7 @@ datasource db {
 
 model Teams {
   name                           String?   @default("")
-  timeslot                       DateTime? @default(now()) @db.Time(6)
+  timeslot                       String?
   leader                         String?
   location                       String?
   region                         String?

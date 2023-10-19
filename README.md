@@ -5,7 +5,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 This app is currently using: 
 - [Next.js] as a [React.js] w/ [Typescript] framework
 - [Supabase] as a [PostgreSQL] Database Provider
-- [Prisma] as a backend to run [GraphQL] APIs
+- [PrismaClient] as a toolkit to work around the database 
+- [ApolloServer] as the serverless framework to serve [GraphQL] APIs
+
 
 
 
