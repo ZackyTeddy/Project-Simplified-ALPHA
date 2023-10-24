@@ -28,6 +28,7 @@ const routes = [
 const Header = () => {
     const {theme, setTheme} = useTheme();
 
+    // BUG : Header is not sticky
     return (
         <header className="sm:flex sm:justify-between py-3 px-4 border-b">
             <Container>

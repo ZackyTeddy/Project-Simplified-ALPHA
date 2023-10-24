@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from './ui/button'
-import {user} from '../lib/data'
+import {user} from '../utils/data'
 import { Cable, CalendarDays, Component } from 'lucide-react'
 
 const HomeSidebar = () => {

@@ -1,31 +1,27 @@
 import React from 'react'
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from './ui/context-menu'
-import { cn } from '@/lib/utils'
-import { TeamData } from '@/lib/types'
+import { cn } from '@/utils/utils'
+import { TeamData } from '@/utils/types'
 import { Badge } from './ui/badge'
 import { Clock2, MapPin } from 'lucide-react'
 import Link from 'next/link'
 
 interface TeamCardProps extends React.HTMLAttributes<HTMLDivElement> {
-    data: TeamData
+    data: any
     aspectRatio?: "portrait" | "square"
-    width?: number
-    height?: number
 }
 
 const TeamCard = ({
     data,
     aspectRatio = "portrait",
-    width,
-    height,
     className,
     ...props
     }: TeamCardProps) => {
     return (
-        <div className={cn("space-y-3", className)} {...props}>
+        <div className={cn("m-3", className)} {...props}>
         <ContextMenu>
             <ContextMenuTrigger>
-            <div className="overflow-hidden rounded-md">
+            <div className="overflow-hidden rounded-md h-[150px] w-[150px]">
                 {/* <Image
                 src={album.cover}
                 alt={album.name}
@@ -36,11 +32,11 @@ const TeamCard = ({
                     aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
                 )}
                 /> */}
-                <Link href={`/teams/${data.id}`}>
+                <Link href={`/teams/${data?.team_Id}`}>
                     <div className='h-[150px] w-[150px] p-2 flex justify-end items-end object-cover cursor-pointer transition-all hover:scale-105 aspect-square bg-blue-gradient'>
                         <div className='w-[140px] flex flex-row flex-wrap justify-end'>
                             {
-                                data.timeslot ? 
+                                data?.timeslot ? 
                                     <Badge className='mb-1' variant="secondary">
                                         <Clock2 size={16}/>
                                         <p className='ml-2 text-[10px]'>{data.timeslot}</p>
@@ -48,7 +44,7 @@ const TeamCard = ({
                                     : <></>
                             }
                             {
-                                data.location && data.region ? 
+                                data?.location && data?.region ? 
                                     <Badge className='' variant="secondary">
                                         <MapPin size={16}/>
                                         <p className='ml-2 text-[10px]'>{data.location}, {data.region}</p>
@@ -79,9 +75,9 @@ const TeamCard = ({
             <ContextMenuItem>Disband Team</ContextMenuItem>
             </ContextMenuContent>
         </ContextMenu>
-        <div className="space-y-1 text-sm">
-            <h3 className="font-medium leading-none">{data.name}</h3>
-            <p className="text-xs text-muted-foreground">{data.leader}</p>
+        <div className="p-2 space-y-1 text-sm">
+            <h3 className="font-medium leading-none">{data.name ? data.name : "Jesus Squad"}</h3>
+            <p className="text-xs text-muted-foreground">{data.leader ? data.leader : "Jesus the Good Shpherd"}</p>
         </div>
         </div>
     )

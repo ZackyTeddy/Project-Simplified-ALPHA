@@ -1,19 +1,36 @@
+'use client'
+
 import HomeSidebar from "@/components/HomeSidebar"
 import TeamCard from "@/components/TeamCard"
 import Container from "@/components/ui/container"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import useSWR from 'swr'
 
-import { teams } from "@/lib/data"
+import { client } from "../utils/genqlClient"
+import { useState } from "react"
 
-import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Simplified Homepage',
-}
 
 export default function Home() {
+//TODO fix data queries depending on tab
+//  const [teams, setTeams] = useState([{}])
+
+  const fetcher = () => client.query({
+      getTeams: {
+        team_Id: true,
+        name: true,
+        leader: true,
+        location: true,
+        region: true,
+        timeslot: true
+      }
+    })
+
+  const { data: teams, error } = useSWR('getTeams', fetcher)
+
+
   return (
           <div className="h-full px-4 py-6 lg:px-8">
             <Tabs defaultValue="resume" className="h-full space-y-6">
@@ -81,8 +98,9 @@ export default function Home() {
                 <Separator className="my-4" />
                 <div className="relative">
                   <ScrollArea>
-                    <div className="flex space-x-4 pb-4">
-                      {teams.map((team, i) => (
+                    {error && <p>Oops, something went wrong!</p>}
+                    <div className="space-x-4 max-w-[1200px] pb-4 grid lg:grid-cols-5 md:grid-cols-4 gap gap-x-3 gap-y-3">
+                      {teams?.getTeams && teams.getTeams.map((team, i) => (
                         <TeamCard 
                           key={i}
                           data={team}
@@ -90,7 +108,7 @@ export default function Home() {
                         />
                       ))}
                     </div>
-                    <ScrollBar orientation="horizontal" />
+                    <ScrollBar/>
                   </ScrollArea>
                 </div>
 
