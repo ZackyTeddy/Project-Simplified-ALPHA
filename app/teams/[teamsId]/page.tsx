@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import TeamMemberCard from "@/components/TeamMemberCard";
 
 export default function Team(){
     const timeslots = ["7AM","8AM","9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM","6PM","7PM","8PM"];
@@ -24,10 +25,22 @@ export default function Team(){
             location: true,
             region: true,
             timeslot: true
+        },
+        getMembers: {
+            __args: {
+                id: teamId || "0"
+            },
+            firstName: true,
+            lastName: true,
+            roles: true
         }
     })
 
-    const { data: team, error } = useSWR('getOneTeam', fetcher)
+    const { data: team, error: getOneTeamError } = useSWR('getOneTeam', fetcher)
+    const { data: members, error: getMembersError } = useSWR('getMembers', fetcher)
+
+    console.log('members.getMembers', members?.getMembers)
+
 
     const returnTimeslots = () => {
         return timeslots.map((timeslot) => {
@@ -49,7 +62,7 @@ export default function Team(){
                 </div>
             </div>
             <div className="flex flex-row">
-                <div className="px-4 w-2/5">
+                <div className="px-4 w-1/3">
                     <Card className="w-full">
                         <CardHeader>
                             <CardTitle>
@@ -109,6 +122,14 @@ export default function Team(){
                                 Manage team members here
                             </CardDescription>
                         </CardHeader>
+                        <CardContent className="grid gap-6">
+                        {getMembersError && <p>Oops, something went wrong!</p>}
+                        {
+                            members?.getMembers && members.getMembers.map((member: any, i: number) => (
+                                <TeamMemberCard key={i} data={member}/>
+                            ))
+                        }
+                        </CardContent>
                     </Card>
                 </div>
             </div>

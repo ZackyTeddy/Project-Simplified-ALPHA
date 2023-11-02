@@ -24,9 +24,9 @@ export default function RootLayout({
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <Header/>
           <Container>
-            <div className="grid lg:grid-cols-5">
+            <div className="grid lg:grid-cols-10">
               <HomeSidebar/>
-              <div className="col-span-4 lg:col-span-4 lg:border-l">
+              <div className="col-span-4 lg:col-span-9 lg:border-l">
                 {children}
               </div>
             </div>

@@ -100,11 +100,10 @@ export default function Home() {
                   <ScrollArea>
                     {error && <p>Oops, something went wrong!</p>}
                     <div className="space-x-4 max-w-[1200px] pb-4 grid lg:grid-cols-5 md:grid-cols-4 gap gap-x-3 gap-y-3">
-                      {teams?.getTeams && teams.getTeams.map((team, i) => (
+                      {teams?.getTeams && teams.getTeams.map((team: any, i: number) => (
                         <TeamCard 
                           key={i}
                           data={team}
-                          
                         />
                       ))}
                     </div>

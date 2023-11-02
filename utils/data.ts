@@ -1,6 +1,6 @@
 //THIS IS TEST DATA
 
-import { TeamData } from "./types"
+import { Roles } from "./types"
 
 export const user = {
     name : "Zack",
@@ -8,37 +8,17 @@ export const user = {
     status: "Agent"
 }
 
-export const teams : TeamData[] = [
-    {
-        id: "1",
-        name: "Sunrise Alpha",
-        timeslot: "7AM",
-        leader: "John Doe",
-        location: "KL",
-        region: "Malaysia"
-    },
-    {
-        id: "2",
-        name: "Morning Bravo",
-        "timeslot": "9AM",
-        "leader": "Jess Doe"
-    },
-    {
-        id: "3",
-        name: "Noon Delta",
-        timeslot: "11AM",
-        leader: "Jacob Rock"
-    },
-    {
-        id: "4",
-        name: "Sundown Echo",
-        timeslot: "4PM",
-        leader: "Jenn Foster"
-    },
-    {
-        id: "5",
-        name: "Night Lemur",
-        timeslot: "6PM",
-        leader: "Joseph Fleece"
-    },
+export const TEAM_ROLES : Roles[] = [
+    {callsign: "LEAD", role: "Lead", color: "#fd1d1d"},
+    {callsign: "OS", role: "Oversight", color: "#147ed9"},
+    {callsign: "PIC", role: "PIC", color: "#00d4ff"},
+    {callsign: "AL", role: "Aisle Lead", color: "#ff8d00"},
+    {callsign: "OUT", role: "Offering-Handout", color: "#14d91a"},
+    {callsign: "IN", role: "Offering-Receiver", color: "#e1c810"},
+    {callsign: "RUN", role: "Section Runner", color: "#9810e1"},
+    {callsign: "MALL", role: "Mall Usher", color: "#e1105e"},
+    {callsign: "CAR", role: "Carpark Usher", color: "#e11096"},
+    {callsign: "INFO", role: "Info Desk", color: "#6b10e1"},
+    {callsign: "SPEC", role: "Special Role", color: "#e110d2"},
 ]
+

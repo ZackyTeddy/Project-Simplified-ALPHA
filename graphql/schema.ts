@@ -37,6 +37,20 @@ const Query = queryType({
                 }
             }
         })
+
+        t.list.field('getMembers', {
+            type: 'Member',
+            args: {
+                id: nonNull(stringArg())
+            },
+            resolve: async (_, args, ctx) => {
+                try {
+                    return ctx.db.members.findMany({ where: { teams: args.id } })
+                } catch (error) {
+                    throw new Error(`${error}`)
+                }
+            }
+        })
     }
 })
 
@@ -104,6 +118,74 @@ const Mutation = mutationType({
                 }
             }
         })
+
+        t.field('createMember', {
+            type: 'Member',
+            args: {
+                firstName: nonNull(stringArg()),
+                lastName: stringArg(),
+                location: stringArg(),
+                region: stringArg(),
+                teams: nonNull(stringArg())
+                },
+            resolve: (_, args, ctx) => {
+                try {
+                    return ctx.db.members.create({
+                    data: {
+                        firstName: args.firstName,
+                        lastName: args.lastName || undefined,
+                        location: args.location || undefined,
+                        region: args.region || undefined,
+                        teams: args.teams
+                    }
+                    })
+                } catch (error) {
+                    throw Error(`${error}`)
+                }
+            }
+        })
+
+        t.field('updateMember', {
+            type: 'Member',
+            args: {
+                id: nonNull(idArg()),
+                firstName: stringArg(),
+                lastName: stringArg(),
+                location: stringArg(),
+                region: stringArg()
+            },
+            resolve: (_, args, ctx) => {
+                try {
+                    return ctx.db.members.update({
+                    where: { memberId: args.id },
+                    data: {
+                        firstName: args.firstName || undefined,
+                        lastName: args.lastName || undefined,
+                        location: args.location || undefined,
+                        region: args.region || undefined
+                    }
+                    })
+                } catch (error) {
+                    throw Error(`${error}`)
+                }
+            }
+        })
+
+        t.field('deleteMember', {
+            type: 'Member',
+            args: {
+                id: nonNull(idArg())
+            },
+            resolve: (_, args, ctx) => {
+                try {
+                    return ctx.db.members.delete({
+                    where: { memberId: args.id }
+                    })
+                } catch (error) {
+                    throw Error(`${error}`)
+                }
+            }
+        })
     }
 })
 
@@ -123,6 +205,21 @@ const Team = objectType({
     },
 })
 
+const Member = objectType({
+    name: 'Member',
+    definition(t) {
+        t.id('memberId')
+        t.string('firstName')
+        t.string('lastName')
+        t.string('location')
+        t.string('region')
+        t.boolean('active')
+        t.string('teams')
+        t.list.string('roles')
+        t.DateTime('created_at')
+    },
+})
+
 
 // Make Schema
 export const schema = makeSchema({
@@ -131,7 +228,8 @@ export const schema = makeSchema({
         Mutation,
         DateTime,
         SortOrder,
-        Team
+        Team,
+        Member
         ],
     outputs: {
         schema: path.join(process.cwd(), 'graphql/schema.graphql'),

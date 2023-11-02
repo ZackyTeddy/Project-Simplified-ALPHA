@@ -6,3 +6,9 @@ export type TeamData = {
     location?: string;
     region?: string;
 }
+
+export type Roles = {
+    callsign: string;
+    role: string;
+    color: string;
+}

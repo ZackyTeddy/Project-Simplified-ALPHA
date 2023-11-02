@@ -3,115 +3,208 @@ export default {
         0,
         2,
         3,
-        5,
+        4,
         7
     ],
     "types": {
         "DateTime": {},
+        "Member": {
+            "active": [
+                2
+            ],
+            "created_at": [
+                0
+            ],
+            "firstName": [
+                3
+            ],
+            "lastName": [
+                3
+            ],
+            "location": [
+                3
+            ],
+            "memberId": [
+                4
+            ],
+            "region": [
+                3
+            ],
+            "role": [
+                3
+            ],
+            "teams": [
+                3
+            ],
+            "__typename": [
+                3
+            ]
+        },
+        "Boolean": {},
+        "String": {},
+        "ID": {},
         "Mutation": {
-            "createTeam": [
-                6,
+            "createMember": [
+                1,
                 {
-                    "leader": [
-                        2
+                    "firstName": [
+                        3,
+                        "String!"
+                    ],
+                    "lastName": [
+                        3
                     ],
                     "location": [
-                        2
+                        3
+                    ],
+                    "region": [
+                        3
+                    ],
+                    "teams": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
+            "createTeam": [
+                8,
+                {
+                    "leader": [
+                        3
+                    ],
+                    "location": [
+                        3
                     ],
                     "name": [
-                        2,
+                        3,
                         "String!"
                     ],
                     "timeslot": [
-                        2
+                        3
+                    ]
+                }
+            ],
+            "deleteMember": [
+                1,
+                {
+                    "id": [
+                        4,
+                        "ID!"
                     ]
                 }
             ],
             "deleteTeam": [
-                6,
+                8,
                 {
                     "id": [
-                        3,
+                        4,
                         "ID!"
+                    ]
+                }
+            ],
+            "updateMember": [
+                1,
+                {
+                    "firstName": [
+                        3
+                    ],
+                    "id": [
+                        4,
+                        "ID!"
+                    ],
+                    "lastName": [
+                        3
+                    ],
+                    "location": [
+                        3
+                    ],
+                    "region": [
+                        3
                     ]
                 }
             ],
             "updateTeam": [
-                6,
+                8,
                 {
                     "id": [
-                        3,
+                        4,
                         "ID!"
                     ],
                     "leader": [
-                        2
+                        3
                     ],
                     "name": [
-                        2
+                        3
                     ]
                 }
             ],
             "__typename": [
-                2
+                3
             ]
         },
-        "String": {},
-        "ID": {},
         "Query": {
-            "getOneTeam": [
-                6,
+            "getMembers": [
+                1,
                 {
                     "id": [
-                        2,
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
+            "getOneTeam": [
+                8,
+                {
+                    "id": [
+                        3,
                         "String!"
                     ]
                 }
             ],
             "getTeams": [
-                6,
+                8,
                 {
                     "sortBy": [
-                        5
+                        7
                     ]
                 }
             ],
             "__typename": [
-                2
+                3
             ]
         },
         "SortOrder": {},
         "Team": {
             "active": [
-                7
+                2
             ],
             "created_at": [
                 0
             ],
             "leader": [
-                2
-            ],
-            "location": [
-                2
-            ],
-            "members": [
-                2
-            ],
-            "name": [
-                2
-            ],
-            "region": [
-                2
-            ],
-            "team_Id": [
                 3
             ],
+            "location": [
+                3
+            ],
+            "members": [
+                3
+            ],
+            "name": [
+                3
+            ],
+            "region": [
+                3
+            ],
+            "team_Id": [
+                4
+            ],
             "timeslot": [
-                2
+                3
             ],
             "__typename": [
-                2
+                3
             ]
-        },
-        "Boolean": {}
+        }
     }
 }

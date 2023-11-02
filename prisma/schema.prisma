@@ -30,6 +30,7 @@ model Members {
   active                       Boolean?
   created_at                   DateTime @default(now()) @db.Timestamptz(6)
   teams                        String?  @db.Uuid
+  roles                        String[]
   Teams_Members_teamsToTeams   Teams?   @relation("Members_teamsToTeams", fields: [teams], references: [team_Id], onDelete: NoAction, onUpdate: NoAction)
   Teams_Teams_membersToMembers Teams[]  @relation("Teams_membersToMembers")
 }

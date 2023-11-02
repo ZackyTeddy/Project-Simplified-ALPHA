@@ -45,6 +45,17 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Member: { // root type
+    active?: boolean | null; // Boolean
+    created_at?: NexusGenScalars['DateTime'] | null; // DateTime
+    firstName?: string | null; // String
+    lastName?: string | null; // String
+    location?: string | null; // String
+    memberId?: string | null; // ID
+    region?: string | null; // String
+    roles?: Array<string | null> | null; // [String]
+    teams?: string | null; // String
+  }
   Mutation: {};
   Query: {};
   Team: { // root type
@@ -71,12 +82,27 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  Member: { // field return type
+    active: boolean | null; // Boolean
+    created_at: NexusGenScalars['DateTime'] | null; // DateTime
+    firstName: string | null; // String
+    lastName: string | null; // String
+    location: string | null; // String
+    memberId: string | null; // ID
+    region: string | null; // String
+    roles: Array<string | null> | null; // [String]
+    teams: string | null; // String
+  }
   Mutation: { // field return type
+    createMember: NexusGenRootTypes['Member'] | null; // Member
     createTeam: NexusGenRootTypes['Team'] | null; // Team
+    deleteMember: NexusGenRootTypes['Member'] | null; // Member
     deleteTeam: NexusGenRootTypes['Team'] | null; // Team
+    updateMember: NexusGenRootTypes['Member'] | null; // Member
     updateTeam: NexusGenRootTypes['Team'] | null; // Team
   }
   Query: { // field return type
+    getMembers: Array<NexusGenRootTypes['Member'] | null> | null; // [Member]
     getOneTeam: NexusGenRootTypes['Team'] | null; // Team
     getTeams: Array<NexusGenRootTypes['Team'] | null> | null; // [Team]
   }
@@ -94,12 +120,27 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Member: { // field return type name
+    active: 'Boolean'
+    created_at: 'DateTime'
+    firstName: 'String'
+    lastName: 'String'
+    location: 'String'
+    memberId: 'ID'
+    region: 'String'
+    roles: 'String'
+    teams: 'String'
+  }
   Mutation: { // field return type name
+    createMember: 'Member'
     createTeam: 'Team'
+    deleteMember: 'Member'
     deleteTeam: 'Team'
+    updateMember: 'Member'
     updateTeam: 'Team'
   }
   Query: { // field return type name
+    getMembers: 'Member'
     getOneTeam: 'Team'
     getTeams: 'Team'
   }
@@ -118,14 +159,31 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createMember: { // args
+      firstName: string; // String!
+      lastName?: string | null; // String
+      location?: string | null; // String
+      region?: string | null; // String
+      teams: string; // String!
+    }
     createTeam: { // args
       leader?: string | null; // String
       location?: string | null; // String
       name: string; // String!
       timeslot?: string | null; // String
     }
+    deleteMember: { // args
+      id: string; // ID!
+    }
     deleteTeam: { // args
       id: string; // ID!
+    }
+    updateMember: { // args
+      firstName?: string | null; // String
+      id: string; // ID!
+      lastName?: string | null; // String
+      location?: string | null; // String
+      region?: string | null; // String
     }
     updateTeam: { // args
       id: string; // ID!
@@ -134,6 +192,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    getMembers: { // args
+      id: string; // String!
+    }
     getOneTeam: { // args
       id: string; // String!
     }

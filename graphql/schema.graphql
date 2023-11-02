@@ -7,13 +7,29 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+type Member {
+  active: Boolean
+  created_at: DateTime
+  firstName: String
+  lastName: String
+  location: String
+  memberId: ID
+  region: String
+  roles: [String]
+  teams: String
+}
+
 type Mutation {
+  createMember(firstName: String!, lastName: String, location: String, region: String, teams: String!): Member
   createTeam(leader: String, location: String, name: String!, timeslot: String): Team
+  deleteMember(id: ID!): Member
   deleteTeam(id: ID!): Team
+  updateMember(firstName: String, id: ID!, lastName: String, location: String, region: String): Member
   updateTeam(id: ID!, leader: String, name: String): Team
 }
 
 type Query {
+  getMembers(id: String!): [Member]
   getOneTeam(id: String!): Team
   getTeams(sortBy: SortOrder): [Team]
 }
