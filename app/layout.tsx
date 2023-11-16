@@ -1,10 +1,10 @@
-import { ThemeProvider } from '@/components/ThemeProvider'
+import { ThemeProvider } from '../components/general/ThemeProvider'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Header from '@/components/Header'
-import HomeSidebar from '@/components/HomeSidebar'
-import Container from '@/components/ui/container'
+import Header from '../components/general/Header'
+import HomeSidebar from '../components/home/HomeSidebar'
+import Container from '../components/ui/container'
 
 const inter = Inter({ subsets: ['latin'] })
 

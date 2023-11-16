@@ -8,13 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import TeamMemberCard from "@/components/TeamMemberCard";
+import TeamMemberCard from "@/components/teams/TeamMemberCard";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import AddNewMember from "@/components/teams/AddNewMember";
+import { useEffect, useState } from "react";
 
 export default function Team(){
-    const timeslots = ["7AM","8AM","9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM","6PM","7PM","8PM"];
-    const pathname = usePathname();
-    const teamId = pathname?.split("/")[2]
-
     const fetcher = () => client.query({
         getOneTeam: {
             __args: {
@@ -30,23 +30,43 @@ export default function Team(){
             __args: {
                 id: teamId || "0"
             },
+            memberId: true,
             firstName: true,
             lastName: true,
+            location: true,
+            region: true,
             roles: true
         }
     })
 
     const { data: team, error: getOneTeamError } = useSWR('getOneTeam', fetcher)
-    const { data: members, error: getMembersError } = useSWR('getMembers', fetcher)
+    const { data: members, mutate: refreshMembers , error: getMembersError } = useSWR('getMembers', fetcher)
+    
+    const [details, setDetails] = useState({
+        name: team?.getOneTeam?.name || "",
+        leader: team?.getOneTeam?.leader || "",
+        location: team?.getOneTeam?.location || "",
+        region: team?.getOneTeam?.region || "",
+        timeslot: team?.getOneTeam?.timeslot || ""
+    })
 
-    console.log('members.getMembers', members?.getMembers)
+    const timeslots = ["7AM","8AM","9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM","6PM","7PM","8PM"];
+    const pathname = usePathname();
+    const teamId = pathname?.split("/")[2] || "";
 
-
-    const returnTimeslots = () => {
-        return timeslots.map((timeslot) => {
-            <SelectItem value={timeslot}>{timeslot}</SelectItem>
+    useEffect(() => {
+        setDetails((prev) => {
+            return {
+                ...prev,
+                name: team?.getOneTeam?.name || "",
+                leader: team?.getOneTeam?.leader || "",
+                location: team?.getOneTeam?.location || "",
+                region: team?.getOneTeam?.region || "",
+                timeslot: team?.getOneTeam?.timeslot || ""
+            }
         })
-    }
+    }, [members])
+
 
     return(
         <div className="h-full px-4 py-6 lg:px-8">
@@ -77,25 +97,35 @@ export default function Team(){
                                 <Label htmlFor="name">
                                     Team Name
                                 </Label>
-                                <Input id="name" value={team && team?.getOneTeam && team.getOneTeam.name ? team?.getOneTeam.name : ""}/>
+                                <Input id="name" 
+                                    value={details.name}
+                                    onChange={(e) => {setDetails((prev) => { return {...prev, name: e.target.value}})}}/>
                             </div>
                             <div className='grid gap-2'>
                                 <Label htmlFor="location">
                                     Campus Location
                                 </Label>
-                                <Input id="location" value={team && team?.getOneTeam && team.getOneTeam.location ? team?.getOneTeam.location : ""} placeholder="Campus Name"/>
+                                <Input id="location" 
+                                    value={details.location} 
+                                    onChange={(e) => {setDetails((prev) => { return {...prev, location: e.target.value}})}} 
+                                    placeholder="Campus Name"/>
                             </div>
                             <div className='grid gap-2'>
                                 <Label htmlFor="region">
                                     Campus Region
                                 </Label>
-                                <Input id="region" value={team && team?.getOneTeam && team.getOneTeam.region ? team?.getOneTeam.region : ""} placeholder="Campus Region/Country/State"/>
+                                <Input id="region" 
+                                    value={details.region} 
+                                    onChange={(e) => {setDetails((prev) => { return {...prev, region: e.target.value}})}} 
+                                    placeholder="Campus Region/Country/State"/>
                             </div>
                             <div className='grid gap-2'>
                                 <Label htmlFor="timeslot">
                                     Team Timeslot
                                 </Label>
-                                <Select value={team && team?.getOneTeam && team.getOneTeam.timeslot ? team?.getOneTeam.timeslot : "UNKNWN"} defaultValue="">
+                                <Select value={details.timeslot} 
+                                    onValueChange={(val) => {setDetails((prev) => { return {...prev, name: val}})}} 
+                                    defaultValue="">
                                     <SelectTrigger id="timeslot">
                                         <SelectValue placeholder="Select timeslot..." />
                                     </SelectTrigger>
@@ -122,13 +152,14 @@ export default function Team(){
                                 Manage team members here
                             </CardDescription>
                         </CardHeader>
-                        <CardContent className="grid gap-6">
+                        <CardContent className="grid gap-6 grid-cols-2 overflow-y-auto">
                         {getMembersError && <p>Oops, something went wrong!</p>}
                         {
                             members?.getMembers && members.getMembers.map((member: any, i: number) => (
-                                <TeamMemberCard key={i} data={member}/>
+                                <TeamMemberCard key={member.memberId} data={member} refreshFunction={refreshMembers}/>
                             ))
                         }
+                        <AddNewMember teamId={teamId} refreshFunction={refreshMembers}/>
                         </CardContent>
                     </Card>
                 </div>

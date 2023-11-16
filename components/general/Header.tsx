@@ -4,11 +4,11 @@
 import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 import ProfileButton from "./ProfileButton"
-import { Button } from "./ui/button"
-import Container from "./ui/container"
+import { Button } from "../ui/button"
+import Container from "../ui/container"
 import {Menu, Moon, Settings, ShoppingCart, Sun} from 'lucide-react'
 import Link from "next/link"
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet"
 
 const routes = [
     {
@@ -52,7 +52,7 @@ const Header = () => {
                             <h1 className="text-xl font-bold font-poppins">PROJECT:SIMPLIFIED</h1>
                         </Link>
                     </div>
-                    <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 hidden md:block">
+                    {/* <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 md:block">
                         {routes.map((route, i) => (
                             <Button key={i} asChild variant="ghost">
                                 <Link href={route.href} className="text-sm font-medium transition-colors font-poppins">
@@ -60,7 +60,7 @@ const Header = () => {
                                 </Link>
                             </Button>
                         ))}
-                    </nav>
+                    </nav> */}
                     <div className="flex items-center">
                         <Button variant="ghost" size="icon" className="mr-2" aria-label="Shopping Cart">
                             <Settings className="h-6 w-6"/>

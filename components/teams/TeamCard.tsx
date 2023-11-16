@@ -1,8 +1,8 @@
 import React from 'react'
-import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from './ui/context-menu'
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from '../ui/context-menu'
 import { cn } from '@/utils/utils'
 import { TeamData } from '@/utils/types'
-import { Badge } from './ui/badge'
+import { Badge } from '../ui/badge'
 import { Clock2, MapPin } from 'lucide-react'
 import Link from 'next/link'
 
