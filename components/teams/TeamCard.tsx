@@ -1,6 +1,6 @@
 import React from 'react'
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from '../ui/context-menu'
-import { cn } from '@/utils/utils'
+import { cn, randomGradientBg } from '@/utils/utils'
 import { TeamData } from '@/utils/types'
 import { Badge } from '../ui/badge'
 import { Clock2, MapPin } from 'lucide-react'
@@ -33,7 +33,8 @@ const TeamCard = ({
                 )}
                 /> */}
                 <Link href={`/teams/${data?.team_Id}`}>
-                    <div className='h-[150px] w-[150px] p-2 flex justify-end items-end object-cover cursor-pointer transition-all hover:scale-105 aspect-square bg-blue-gradient'>
+                    <div className="h-[150px] w-[150px] p-2 flex justify-end items-end object-cover cursor-pointer transition-all hover:scale-105 aspect-square
+                                    bg-gradient-to-r from-[#3f5efb] to-[#fc466b]">
                         <div className='w-[140px] flex flex-row flex-wrap justify-end'>
                             {
                                 data?.timeslot ? 

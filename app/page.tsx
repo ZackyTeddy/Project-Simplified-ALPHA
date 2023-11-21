@@ -9,6 +9,7 @@ import useSWR from 'swr'
 
 import { client } from "../utils/genqlClient"
 import { useState } from "react"
+import LayoutCard from "@/components/layouts/LayoutCard"
 
 
 
@@ -24,10 +25,16 @@ export default function Home() {
         location: true,
         region: true,
         timeslot: true
+      },
+      getLayouts: {
+        layoutId: true,
+        metadata: true
       }
     })
 
-  const { data: teams, error } = useSWR('getTeams', fetcher)
+  const { data: teams, error: teamsFetchError } = useSWR('getTeams', fetcher)
+  const { data: layouts, error: layoutsFetchError } = useSWR('getLayouts', fetcher)
+
 
 
   return (
@@ -97,7 +104,7 @@ export default function Home() {
                 <Separator className="my-4" />
                 <div className="relative">
                   <ScrollArea>
-                    {error && <p>Oops, something went wrong!</p>}
+                    {teamsFetchError && <p>Oops, something went wrong!</p>}
                     <div className="space-x-4 max-w-[1200px] pb-4 grid lg:grid-cols-6 md:grid-cols-5 gap gap-x-3 gap-y-3 overflow-y-auto">
                       {teams?.getTeams && teams.getTeams.map((team: any, i: number) => (
                         <TeamCard 
@@ -126,20 +133,17 @@ export default function Home() {
                 </div>
                 <Separator className="my-4" />
                 <div className="relative">
-                  <ScrollArea>
-                    <div className="flex space-x-4 pb-4">
-                      {/* {listenNowAlbums.map((album) => (
-                        <AlbumArtwork
-                          key={album.name}
-                          album={album}
-                          className="w-[250px]"
-                          aspectRatio="portrait"
-                          width={250}
-                          height={330}
+                <ScrollArea>
+                    {layoutsFetchError && <p>Oops, something went wrong!</p>}
+                    <div className="space-x-4 max-w-[1200px] pb-4 grid lg:grid-cols-6 md:grid-cols-5 gap gap-x-3 gap-y-3 overflow-y-auto">
+                      {layouts?.getLayouts && layouts.getLayouts.map((layout: any, i: number) => (
+                        <LayoutCard 
+                          key={i}
+                          data={layout}
                         />
-                      ))} */}
+                      ))}
                     </div>
-                    <ScrollBar orientation="horizontal" />
+                    <ScrollBar/>
                   </ScrollArea>
                 </div>
 

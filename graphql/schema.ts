@@ -1,9 +1,12 @@
-import { makeSchema, queryType, mutationType, asNexusMethod, objectType, enumType, arg, nonNull, stringArg, idArg } from "nexus";
-import { DateTimeResolver } from 'graphql-scalars'
+import { makeSchema, queryType, mutationType, asNexusMethod, objectType, enumType, arg, nonNull, stringArg, idArg, list } from "nexus";
+import { DateTimeResolver, JSONResolver } from 'graphql-scalars'
+import { GraphQLScalarType } from 'graphql'
+
 import * as path from 'path'
 
 //Helper Methods
 const DateTime = asNexusMethod(DateTimeResolver, 'DateTime');
+const JSON = asNexusMethod(JSONResolver, 'JSON')
 const SortOrder = enumType({
     name: "SortOrder",
     members: ["asc", "desc"]
@@ -46,6 +49,32 @@ const Query = queryType({
             resolve: async (_, args, ctx) => {
                 try {
                     return ctx.db.members.findMany({ where: { teams: args.id } })
+                } catch (error) {
+                    throw new Error(`${error}`)
+                }
+            }
+        })
+
+        t.list.field('getLayouts', {
+            type: 'Layout',
+            args: {
+                sortBy: arg({ type: 'SortOrder' }),
+            },
+            resolve: async (_, args, ctx) => {
+                return ctx.db.layouts.findMany({
+                    orderBy: { created_at: args.sortBy || undefined }
+                })
+            }
+        })
+
+        t.field('getOneLayout', {
+            type: 'Layout',
+            args: {
+                id: nonNull(stringArg())
+            },
+            resolve: async (_, args, ctx) => {
+                try {
+                    return ctx.db.layouts.findUnique({ where: { layoutId: args.id } })
                 } catch (error) {
                     throw new Error(`${error}`)
                 }
@@ -152,7 +181,8 @@ const Mutation = mutationType({
                 firstName: stringArg(),
                 lastName: stringArg(),
                 location: stringArg(),
-                region: stringArg()
+                region: stringArg(),
+                roles: nonNull(list(nonNull(stringArg())))
             },
             resolve: (_, args, ctx) => {
                 try {
@@ -162,7 +192,8 @@ const Mutation = mutationType({
                         firstName: args.firstName || undefined,
                         lastName: args.lastName || undefined,
                         location: args.location || undefined,
-                        region: args.region || undefined
+                        region: args.region || undefined,
+                        roles: args.roles || null
                     }
                     })
                 } catch (error) {
@@ -186,9 +217,76 @@ const Mutation = mutationType({
                 }
             }
         })
+
+        t.field('createLayout', {
+            type: 'Layout',
+            args: {
+                name: nonNull(stringArg()),
+                location: stringArg(),
+                },
+            resolve: (_, args, ctx) => {
+                try {
+                    return ctx.db.layouts.create({
+                    data: {
+                        metadata: {
+                            name: args.name,
+                            location: args.location
+                        }
+                    }
+                    })
+                } catch (error) {
+                    throw Error(`${error}`)
+                }
+            }
+        })
+
+        t.field('updateLayout', {
+            type: 'Layout',
+            args: {
+                id: nonNull(idArg()),
+                name: stringArg(),
+                location: stringArg(),
+                blueprint: arg({type: "JSON"}),
+                positions: arg({type: "JSON"})
+            },
+            resolve: (_, args, ctx) => {
+                try {
+                    return ctx.db.layouts.update({
+                    where: { layoutId: args.id },
+                    data: {
+                        metadata: {
+                            name: args.name || undefined,
+                            location: args.location || undefined,
+                        },
+                        blueprint: args.blueprint,
+                        positions: args.positions
+                    }
+                    })
+                } catch (error) {
+                    throw Error(`${error}`)
+                }
+            }
+        })
+
+        t.field('deleteLayout', {
+            type: 'Layout',
+            args: {
+                id: nonNull(idArg())
+            },
+            resolve: (_, args, ctx) => {
+                try {
+                    return ctx.db.layouts.delete({
+                    where: { layoutId: args.id }
+                    })
+                } catch (error) {
+                    throw Error(`${error}`)
+                }
+            }
+        })
     }
 })
 
+// TODO  Refactor team_Id to teamId for naming convention consistencies
 //Object Types
 const Team = objectType({
     name: 'Team',
@@ -220,6 +318,17 @@ const Member = objectType({
     },
 })
 
+const Layout = objectType({
+    name: 'Layout',
+    definition(t) {
+        t.id('layoutId')
+        t.JSON('metadata')
+        t.JSON('blueprints')
+        t.JSON('positions')
+        t.DateTime('created_at')
+    },
+})
+
 
 // Make Schema
 export const schema = makeSchema({
@@ -227,9 +336,11 @@ export const schema = makeSchema({
         Query,
         Mutation,
         DateTime,
+        JSON,
         SortOrder,
         Team,
-        Member
+        Member,
+        Layout
         ],
     outputs: {
         schema: path.join(process.cwd(), 'graphql/schema.graphql'),
@@ -248,4 +359,3 @@ export const schema = makeSchema({
         ]
         }
 })
-

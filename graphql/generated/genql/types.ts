@@ -1,209 +1,294 @@
 export default {
     "scalars": [
         0,
-        2,
+        1,
         3,
-        4,
-        7
+        5,
+        6,
+        9
     ],
     "types": {
         "DateTime": {},
+        "JSON": {},
+        "Layout": {
+            "blueprints": [
+                1
+            ],
+            "created_at": [
+                0
+            ],
+            "layoutId": [
+                3
+            ],
+            "metadata": [
+                1
+            ],
+            "positions": [
+                1
+            ],
+            "__typename": [
+                6
+            ]
+        },
+        "ID": {},
         "Member": {
             "active": [
-                2
+                5
             ],
             "created_at": [
                 0
             ],
             "firstName": [
-                3
+                6
             ],
             "lastName": [
-                3
+                6
             ],
             "location": [
-                3
+                6
             ],
             "memberId": [
-                4
+                3
             ],
             "region": [
-                3
+                6
             ],
-            "role": [
-                3
+            "roles": [
+                6
             ],
             "teams": [
-                3
+                6
             ],
             "__typename": [
-                3
+                6
             ]
         },
         "Boolean": {},
         "String": {},
-        "ID": {},
         "Mutation": {
+            "createLayout": [
+                2,
+                {
+                    "location": [
+                        6
+                    ],
+                    "name": [
+                        6,
+                        "String!"
+                    ]
+                }
+            ],
             "createMember": [
-                1,
+                4,
                 {
                     "firstName": [
-                        3,
+                        6,
                         "String!"
                     ],
                     "lastName": [
-                        3
+                        6
                     ],
                     "location": [
-                        3
+                        6
                     ],
                     "region": [
-                        3
+                        6
                     ],
                     "teams": [
-                        3,
+                        6,
                         "String!"
                     ]
                 }
             ],
             "createTeam": [
-                8,
+                10,
                 {
                     "leader": [
-                        3
+                        6
                     ],
                     "location": [
-                        3
+                        6
                     ],
                     "name": [
-                        3,
+                        6,
                         "String!"
                     ],
                     "timeslot": [
-                        3
+                        6
+                    ]
+                }
+            ],
+            "deleteLayout": [
+                2,
+                {
+                    "id": [
+                        3,
+                        "ID!"
                     ]
                 }
             ],
             "deleteMember": [
-                1,
+                4,
                 {
                     "id": [
-                        4,
+                        3,
                         "ID!"
                     ]
                 }
             ],
             "deleteTeam": [
-                8,
+                10,
                 {
                     "id": [
-                        4,
+                        3,
                         "ID!"
+                    ]
+                }
+            ],
+            "updateLayout": [
+                2,
+                {
+                    "blueprint": [
+                        1
+                    ],
+                    "id": [
+                        3,
+                        "ID!"
+                    ],
+                    "location": [
+                        6
+                    ],
+                    "name": [
+                        6
+                    ],
+                    "positions": [
+                        1
                     ]
                 }
             ],
             "updateMember": [
-                1,
+                4,
                 {
                     "firstName": [
-                        3
+                        6
                     ],
                     "id": [
-                        4,
+                        3,
                         "ID!"
                     ],
                     "lastName": [
-                        3
+                        6
                     ],
                     "location": [
-                        3
+                        6
                     ],
                     "region": [
-                        3
+                        6
+                    ],
+                    "roles": [
+                        6,
+                        "[String!]!"
                     ]
                 }
             ],
             "updateTeam": [
-                8,
+                10,
                 {
                     "id": [
-                        4,
+                        3,
                         "ID!"
                     ],
                     "leader": [
-                        3
+                        6
                     ],
                     "name": [
-                        3
+                        6
                     ]
                 }
             ],
             "__typename": [
-                3
+                6
             ]
         },
         "Query": {
+            "getLayouts": [
+                2,
+                {
+                    "sortBy": [
+                        9
+                    ]
+                }
+            ],
             "getMembers": [
-                1,
+                4,
                 {
                     "id": [
-                        3,
+                        6,
+                        "String!"
+                    ]
+                }
+            ],
+            "getOneLayout": [
+                2,
+                {
+                    "id": [
+                        6,
                         "String!"
                     ]
                 }
             ],
             "getOneTeam": [
-                8,
+                10,
                 {
                     "id": [
-                        3,
+                        6,
                         "String!"
                     ]
                 }
             ],
             "getTeams": [
-                8,
+                10,
                 {
                     "sortBy": [
-                        7
+                        9
                     ]
                 }
             ],
             "__typename": [
-                3
+                6
             ]
         },
         "SortOrder": {},
         "Team": {
             "active": [
-                2
+                5
             ],
             "created_at": [
                 0
             ],
             "leader": [
-                3
+                6
             ],
             "location": [
-                3
+                6
             ],
             "members": [
-                3
+                6
             ],
             "name": [
-                3
+                6
             ],
             "region": [
-                3
+                6
             ],
             "team_Id": [
-                4
+                3
             ],
             "timeslot": [
-                3
+                6
             ],
             "__typename": [
-                3
+                6
             ]
         }
     }

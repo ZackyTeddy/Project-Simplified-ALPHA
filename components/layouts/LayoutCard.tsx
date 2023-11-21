@@ -5,17 +5,20 @@ import { Badge } from '../ui/badge'
 import { Clock2, MapPin } from 'lucide-react'
 import Link from 'next/link'
 
-interface PlanCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface LayoutCardProps extends React.HTMLAttributes<HTMLDivElement> {
     data: any
     aspectRatio?: "portrait" | "square"
 }
 
-const PlanCard = ({
+const LayoutCard = ({
     data,
     aspectRatio = "portrait",
     className,
     ...props
-    }: PlanCardProps) => {
+    }: LayoutCardProps) => {
+    
+        console.log('data', data)
+    
     return (
         <div className={cn("m-3", className)} {...props}>
         <ContextMenu>
@@ -31,22 +34,15 @@ const PlanCard = ({
                     aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
                 )}
                 /> */}
-                <Link href={`/plans/${data?.team_Id}`}>
-                    <div className='h-[150px] w-[150px] p-2 flex justify-end items-end object-cover cursor-pointer transition-all hover:scale-105 aspect-square bg-blue-gradient'>
+                <Link href={`/layouts/${data?.layoutId}`}>
+                <div className="h-[150px] w-[150px] p-2 flex justify-end items-end object-cover cursor-pointer transition-all hover:scale-105 aspect-square
+                                    bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045]">
                         <div className='w-[140px] flex flex-row flex-wrap justify-end'>
                             {
-                                data?.timeslot ? 
-                                    <Badge className='mb-1' variant="secondary">
-                                        <Clock2 size={16}/>
-                                        <p className='ml-2 text-[10px]'>{data.timeslot}</p>
-                                    </Badge>
-                                    : <></>
-                            }
-                            {
-                                data?.location && data?.region ? 
+                                data.metadata.layoutLocation && data.metadata.layoutRegion ? 
                                     <Badge className='' variant="secondary">
                                         <MapPin size={16}/>
-                                        <p className='ml-2 text-[10px]'>{data.location}, {data.region}</p>
+                                        <p className='ml-2 text-[10px]'>{data.metadata.layoutLocation}, {data.metadata.layoutRegion}</p>
                                     </Badge>
                                     : <></>
                             }
@@ -75,11 +71,11 @@ const PlanCard = ({
             </ContextMenuContent>
         </ContextMenu>
         <div className="p-2 space-y-1 text-sm">
-            <h3 className="font-medium leading-none">{data.name ? data.name : "Jesus Squad"}</h3>
+            <h3 className="font-medium leading-none">{data.metadata.layoutName ? data.metadata.layoutName : "Jesus Squad"}</h3>
             <p className="text-xs text-muted-foreground">{data.leader ? data.leader : "Jesus the Good Shpherd"}</p>
         </div>
         </div>
     )
 }
 
-export default PlanCard
+export default LayoutCard

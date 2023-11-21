@@ -7,6 +7,19 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type Layout {
+  blueprints: JSON
+  created_at: DateTime
+  layoutId: ID
+  metadata: JSON
+  positions: JSON
+}
+
 type Member {
   active: Boolean
   created_at: DateTime
@@ -20,16 +33,21 @@ type Member {
 }
 
 type Mutation {
+  createLayout(location: String, name: String!): Layout
   createMember(firstName: String!, lastName: String, location: String, region: String, teams: String!): Member
   createTeam(leader: String, location: String, name: String!, timeslot: String): Team
+  deleteLayout(id: ID!): Layout
   deleteMember(id: ID!): Member
   deleteTeam(id: ID!): Team
-  updateMember(firstName: String, id: ID!, lastName: String, location: String, region: String): Member
+  updateLayout(blueprint: JSON, id: ID!, location: String, name: String, positions: JSON): Layout
+  updateMember(firstName: String, id: ID!, lastName: String, location: String, region: String, roles: [String!]!): Member
   updateTeam(id: ID!, leader: String, name: String): Team
 }
 
 type Query {
+  getLayouts(sortBy: SortOrder): [Layout]
   getMembers(id: String!): [Member]
+  getOneLayout(id: String!): Layout
   getOneTeam(id: String!): Team
   getTeams(sortBy: SortOrder): [Team]
 }

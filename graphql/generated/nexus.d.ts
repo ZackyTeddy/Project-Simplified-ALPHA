@@ -12,6 +12,10 @@ declare global {
      * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
     DateTime<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
+    /**
+     * The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+     */
+    JSON<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "JSON";
   }
 }
 declare global {
@@ -20,6 +24,10 @@ declare global {
      * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
     DateTime<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
+    /**
+     * The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+     */
+    JSON<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "JSON";
   }
 }
 
@@ -42,9 +50,17 @@ export interface NexusGenScalars {
   Boolean: boolean
   ID: string
   DateTime: any
+  JSON: any
 }
 
 export interface NexusGenObjects {
+  Layout: { // root type
+    blueprints?: NexusGenScalars['JSON'] | null; // JSON
+    created_at?: NexusGenScalars['DateTime'] | null; // DateTime
+    layoutId?: string | null; // ID
+    metadata?: NexusGenScalars['JSON'] | null; // JSON
+    positions?: NexusGenScalars['JSON'] | null; // JSON
+  }
   Member: { // root type
     active?: boolean | null; // Boolean
     created_at?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -82,6 +98,13 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  Layout: { // field return type
+    blueprints: NexusGenScalars['JSON'] | null; // JSON
+    created_at: NexusGenScalars['DateTime'] | null; // DateTime
+    layoutId: string | null; // ID
+    metadata: NexusGenScalars['JSON'] | null; // JSON
+    positions: NexusGenScalars['JSON'] | null; // JSON
+  }
   Member: { // field return type
     active: boolean | null; // Boolean
     created_at: NexusGenScalars['DateTime'] | null; // DateTime
@@ -94,15 +117,20 @@ export interface NexusGenFieldTypes {
     teams: string | null; // String
   }
   Mutation: { // field return type
+    createLayout: NexusGenRootTypes['Layout'] | null; // Layout
     createMember: NexusGenRootTypes['Member'] | null; // Member
     createTeam: NexusGenRootTypes['Team'] | null; // Team
+    deleteLayout: NexusGenRootTypes['Layout'] | null; // Layout
     deleteMember: NexusGenRootTypes['Member'] | null; // Member
     deleteTeam: NexusGenRootTypes['Team'] | null; // Team
+    updateLayout: NexusGenRootTypes['Layout'] | null; // Layout
     updateMember: NexusGenRootTypes['Member'] | null; // Member
     updateTeam: NexusGenRootTypes['Team'] | null; // Team
   }
   Query: { // field return type
+    getLayouts: Array<NexusGenRootTypes['Layout'] | null> | null; // [Layout]
     getMembers: Array<NexusGenRootTypes['Member'] | null> | null; // [Member]
+    getOneLayout: NexusGenRootTypes['Layout'] | null; // Layout
     getOneTeam: NexusGenRootTypes['Team'] | null; // Team
     getTeams: Array<NexusGenRootTypes['Team'] | null> | null; // [Team]
   }
@@ -120,6 +148,13 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Layout: { // field return type name
+    blueprints: 'JSON'
+    created_at: 'DateTime'
+    layoutId: 'ID'
+    metadata: 'JSON'
+    positions: 'JSON'
+  }
   Member: { // field return type name
     active: 'Boolean'
     created_at: 'DateTime'
@@ -132,15 +167,20 @@ export interface NexusGenFieldTypeNames {
     teams: 'String'
   }
   Mutation: { // field return type name
+    createLayout: 'Layout'
     createMember: 'Member'
     createTeam: 'Team'
+    deleteLayout: 'Layout'
     deleteMember: 'Member'
     deleteTeam: 'Team'
+    updateLayout: 'Layout'
     updateMember: 'Member'
     updateTeam: 'Team'
   }
   Query: { // field return type name
+    getLayouts: 'Layout'
     getMembers: 'Member'
+    getOneLayout: 'Layout'
     getOneTeam: 'Team'
     getTeams: 'Team'
   }
@@ -159,6 +199,10 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createLayout: { // args
+      location?: string | null; // String
+      name: string; // String!
+    }
     createMember: { // args
       firstName: string; // String!
       lastName?: string | null; // String
@@ -172,11 +216,21 @@ export interface NexusGenArgTypes {
       name: string; // String!
       timeslot?: string | null; // String
     }
+    deleteLayout: { // args
+      id: string; // ID!
+    }
     deleteMember: { // args
       id: string; // ID!
     }
     deleteTeam: { // args
       id: string; // ID!
+    }
+    updateLayout: { // args
+      blueprint?: NexusGenScalars['JSON'] | null; // JSON
+      id: string; // ID!
+      location?: string | null; // String
+      name?: string | null; // String
+      positions?: NexusGenScalars['JSON'] | null; // JSON
     }
     updateMember: { // args
       firstName?: string | null; // String
@@ -184,6 +238,7 @@ export interface NexusGenArgTypes {
       lastName?: string | null; // String
       location?: string | null; // String
       region?: string | null; // String
+      roles: string[]; // [String!]!
     }
     updateTeam: { // args
       id: string; // ID!
@@ -192,7 +247,13 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    getLayouts: { // args
+      sortBy?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    }
     getMembers: { // args
+      id: string; // String!
+    }
+    getOneLayout: { // args
       id: string; // String!
     }
     getOneTeam: { // args
