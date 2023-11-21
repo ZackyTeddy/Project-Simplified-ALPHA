@@ -20,13 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} h-screen`}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <Header/>
           <Container>
-            <div className="grid lg:grid-cols-10">
+            <div className="flex h-full">
               <HomeSidebar/>
-              <div className="col-span-4 lg:col-span-9 lg:border-l">
+              <div className="flex-grow">
                 {children}
               </div>
             </div>
