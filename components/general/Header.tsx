@@ -62,7 +62,7 @@ const Header = () => {
                         ))}
                     </nav> */}
                     <div className="flex items-center">
-                        <Button variant="ghost" size="icon" className="mr-2" aria-label="Shopping Cart">
+                        <Button variant="ghost" size="icon" className="mr-2" aria-label="Settings">
                             <Settings className="h-6 w-6"/>
                             <span className="sr-only">Settings</span>
                         </Button> 

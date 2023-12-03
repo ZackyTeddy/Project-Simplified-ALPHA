@@ -1,3 +1,5 @@
+"use client"
+
 import { ThemeProvider } from '../components/general/ThemeProvider'
 import './globals.css'
 import type { Metadata } from 'next'
@@ -5,10 +7,14 @@ import { Inter } from 'next/font/google'
 import Header from '../components/general/Header'
 import HomeSidebar from '../components/home/HomeSidebar'
 import Container from '../components/ui/container'
+import { Provider } from 'react-redux'
+import {globalStore} from '../redux/globalStore'
+import React from 'react'
+import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
+const metadata = {
   title: 'Simplified Home',
   description: 'Church ground control made simple',
 }
@@ -20,19 +26,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <title>{metadata.title}</title>
+      </Head>
       <body className={`${inter.className} h-screen`}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <Header/>
-          <Container>
-            <div className="flex h-full">
-              <HomeSidebar/>
-              <div className="flex-grow">
-                {children}
+        <Provider store={globalStore}>
+          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+            <Header/>
+            <Container>
+              <div className="flex h-full">
+                <HomeSidebar/>
+                <div className="flex-grow">
+                  {children}
+                </div>
               </div>
-            </div>
-          </Container>
-
-        </ThemeProvider>
+            </Container>
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   )
