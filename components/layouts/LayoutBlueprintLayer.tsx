@@ -1,25 +1,31 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Layer, Line, Rect } from 'react-konva'
 import ShapeSpawner from './ShapeSpawner';
 import { eventEmitter } from '@/emitters/eventEmitter';
 import { EventType } from '@/emitters/eventTypes';
 import { useSelector } from 'react-redux';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Shape as KonvaShape} from "konva/lib/Shape";
 import { ShapeItem } from '@/utils/types';
+import ShapeElement from './ShapeElement';
+import { updateElementInBlueprint } from '@/redux/slices/layoutSlice';
 
 
 interface LayoutBlueprintLayerProps {
   width: number;
   height: number;
+  shapeSelector: Dispatch<SetStateAction<string | null>>;
+  selectedShape: string | null;
 }
 
-const LayoutBlueprintLayer = ({width, height}: LayoutBlueprintLayerProps) => {
+const LayoutBlueprintLayer = ({width, height, shapeSelector, selectedShape}: LayoutBlueprintLayerProps) => {
   const SPACING = 25;
   const xLines = [], yLines = [];
-  const shapeList = useAppSelector((state: any) => state.layout.blueprint)
+  const shapeList: ShapeItem[] = useAppSelector((state: any) => state.layout.blueprint)
+  const dispatch = useAppDispatch()
+
 
   for(var i = 1; i* SPACING < width; i++){
     xLines.push(
@@ -53,25 +59,22 @@ const LayoutBlueprintLayer = ({width, height}: LayoutBlueprintLayerProps) => {
       </Layer>
       <Layer>
         {/* add elements here */}
-        <Rect
-          onDragEnd={(e) => {
-            e.target.to({
-              x: Math.round(e.target.x() / SPACING) * SPACING,
-              y: Math.round(e.target.y() / SPACING) * SPACING
-            });
-          }}
-          x={80}
-          y={80}
-          draggable
-          width={50}
-          height={50}
-          fill="#ffffff"
-        />
-        {shapeList.map(({shape: Shape, ...props} : ShapeItem) => (
-          <Shape 
-            key={props.id}
-            draggable
-            {...props}
+        {shapeList && shapeList.map((item: ShapeItem, i: any) => (
+          <ShapeElement
+            key={i}
+            props={item}
+            spacing={SPACING}
+            isSelected={item?.id === selectedShape}
+            onSelect={() => {
+              shapeSelector(item?.id || null)
+            }}
+            onChange={(newAttrs) => {
+              dispatch(updateElementInBlueprint(
+                {
+                  newAttributes: newAttrs
+                }
+              ))
+            }}
           />
         ))}
       </Layer>

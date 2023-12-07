@@ -14,12 +14,21 @@ export type Roles = {
 }
 
 export type ShapeItem = {
-    id? : string,
+    id : string,
     shape: string,
     width: number,
     height: number,
     x: number,
     y: number,
-    fill? : string,
-    draggable? : boolean
+    fill?: string,
+    draggable?: boolean,
+    isSelected?: boolean,
+    ref?: any,
+    onDragEnd?: () => void,
+    onSelect?: () => void,
+    onChange?: () => void,
+    onClick?: () => void,
+    onTap?: () => void,
+    onTransformEnd?: () => void,
+
 }
