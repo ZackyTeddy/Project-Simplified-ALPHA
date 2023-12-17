@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import {globalStore} from '../redux/globalStore'
 import React from 'react'
 import Head from 'next/head'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -39,6 +40,7 @@ export default function RootLayout({
                 <div className="flex-grow">
                   {children}
                 </div>
+                <Toaster/>
               </div>
             </Container>
           </ThemeProvider>

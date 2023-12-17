@@ -16,11 +16,12 @@ import { updateElementInBlueprint } from '@/redux/slices/layoutSlice';
 interface LayoutBlueprintLayerProps {
   width: number;
   height: number;
+  initBlueprint: any[];
   shapeSelector: Dispatch<SetStateAction<string | null>>;
   selectedShape: string | null;
 }
 
-const LayoutBlueprintLayer = ({width, height, shapeSelector, selectedShape}: LayoutBlueprintLayerProps) => {
+const LayoutBlueprintLayer = ({width, height, initBlueprint, shapeSelector, selectedShape}: LayoutBlueprintLayerProps) => {
   const SPACING = 25;
   const xLines = [], yLines = [];
   const shapeList: ShapeItem[] = useAppSelector((state: any) => state.layout.blueprint)
@@ -30,6 +31,7 @@ const LayoutBlueprintLayer = ({width, height, shapeSelector, selectedShape}: Lay
   for(var i = 1; i* SPACING < width; i++){
     xLines.push(
       <Line 
+        key={"x" + i}
         stroke={"rgba(41,37,36,1.000)"}
         strokeWidth={1}
         points={[i*SPACING,0, i*SPACING, height]}
@@ -40,6 +42,7 @@ const LayoutBlueprintLayer = ({width, height, shapeSelector, selectedShape}: Lay
   for(var i = 1; i* SPACING < height; i++){
     yLines.push(
       <Line 
+        key={"y" + i}
         stroke={"rgba(41,37,36,1.000)"}
         strokeWidth={1}
         points={[0, i*SPACING, width, i*SPACING]}
@@ -59,24 +62,44 @@ const LayoutBlueprintLayer = ({width, height, shapeSelector, selectedShape}: Lay
       </Layer>
       <Layer>
         {/* add elements here */}
-        {shapeList && shapeList.map((item: ShapeItem, i: any) => (
-          <ShapeElement
-            key={i}
-            props={item}
-            spacing={SPACING}
-            isSelected={item?.id === selectedShape}
-            onSelect={() => {
-              shapeSelector(item?.id || null)
-            }}
-            onChange={(newAttrs) => {
-              dispatch(updateElementInBlueprint(
-                {
-                  newAttributes: newAttrs
-                }
-              ))
-            }}
-          />
-        ))}
+        { shapeList.length > 0 ?
+            shapeList && shapeList.map((item: ShapeItem, i: any) => (
+              <ShapeElement
+                key={i}
+                props={item}
+                spacing={SPACING}
+                isSelected={item?.id === selectedShape}
+                onSelect={() => {
+                  shapeSelector(item?.id || null)
+                }}
+                onChange={(newAttrs) => {
+                  dispatch(updateElementInBlueprint(
+                    {
+                      newAttributes: newAttrs
+                    }
+                  ))
+                }}
+              />
+            )) :
+            initBlueprint && initBlueprint.map((item: ShapeItem, i: any) => (
+              <ShapeElement
+              key={i}
+                props={item}
+                spacing={SPACING}
+                isSelected={item?.id === selectedShape}
+                onSelect={() => {
+                  shapeSelector(item?.id || null)
+                }}
+                onChange={(newAttrs) => {
+                  dispatch(updateElementInBlueprint(
+                    {
+                      newAttributes: newAttrs
+                    }
+                  ))
+                }}
+              />
+            ))
+        }
       </Layer>
     </>
   )

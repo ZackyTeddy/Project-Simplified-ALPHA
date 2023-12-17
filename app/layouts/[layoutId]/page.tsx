@@ -8,8 +8,11 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
+import { useAppDispatch } from '@/redux/hooks'
+import { saveCurrentBlueprint, setCurrentBlueprint } from '@/redux/slices/layoutSlice'
 import { client } from '@/utils/genqlClient'
 import { ArrowDownUp, Frame, FrameIcon, MapPin } from 'lucide-react'
+import { SpinnerDotted, SpinnerInfinity } from 'spinners-react'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
@@ -20,33 +23,40 @@ const page = () => {
           __args: {
               id: layoutId || "0"
           },
+          layoutId: true,
           metadata: true,
-          blueprints: true,
+          blueprint: true,
           positions: true
       }
   })
 
-  const { data: layout, error: getOneLayoutError } = useSWR('getOneLayout', fetcher)
+  const { data: layout, error: getOneLayoutError, isLoading } = useSWR('getOneLayout', fetcher)
 
   const [details, setDetails] = useState({
       metadata: layout?.getOneLayout?.metadata || {},
-      blueprints: layout?.getOneLayout?.blueprints || {},
+      blueprint: layout?.getOneLayout?.blueprint || [],
       positions: layout?.getOneLayout?.positions || {},
   })
 
   const pathname = usePathname();
   const layoutId = pathname?.split("/")[2] || "";
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
       setDetails((prev) => {
           return {
               ...prev,
               metadata: layout?.getOneLayout?.metadata || {},
-              blueprints: layout?.getOneLayout?.blueprints || {},
+              blueprint: layout?.getOneLayout?.blueprint || [],
               positions: layout?.getOneLayout?.positions || {},
           }
-      })
+        })
+      console.log('layout', layout)
   }, [layout])
+
+  useEffect(() => {
+  },[])
 
 
   return (
@@ -54,7 +64,7 @@ const page = () => {
       <div className="hidden h-full flex-col md:flex">
         <Tabs defaultValue="blueprint" className="flex-1">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-          <h2 className="text-lg font-semibold">Layout Builder {details.metadata?.layoutName ? `- ${details.metadata.layoutName}` : ""}</h2>
+          <h2 className="text-lg font-semibold">Layout Builder {!isLoading && details.metadata?.layoutName ? `- ${details.metadata.layoutName}` : <SpinnerInfinity />}</h2>
           <TabsList className="grid grid-cols-3" defaultValue="blueprint">
             <TabsTrigger value="blueprint" >
               <HoverCard openDelay={200}>
@@ -94,7 +104,8 @@ const page = () => {
               <div className="flex flex-row md:flex-col h-full space-y-4 p-0">
                 <ShapeSpawner />
                 <div className="w-[1000px] h-[450px] border m-0">
-                  <LayoutStage />
+                  {isLoading && <SpinnerDotted/>}
+                  {!isLoading && <LayoutStage layout={layout?.getOneLayout} />}
                 </div>
               </div>
               {/* <div className="hidden flex-col space-y-4 sm:flex md:order-2 border-l p-4">

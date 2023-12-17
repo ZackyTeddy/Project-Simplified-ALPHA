@@ -244,20 +244,16 @@ const Mutation = mutationType({
             type: 'Layout',
             args: {
                 id: nonNull(idArg()),
-                name: stringArg(),
-                location: stringArg(),
-                blueprint: arg({type: "JSON"}),
-                positions: arg({type: "JSON"})
+                metadata: arg({type: "JSON"}),
+                blueprint: nonNull(list(nonNull(arg({type: "JSON"})))),
+                positions: nonNull(list(nonNull(arg({type: "JSON"})))),
             },
             resolve: (_, args, ctx) => {
                 try {
                     return ctx.db.layouts.update({
                     where: { layoutId: args.id },
                     data: {
-                        metadata: {
-                            name: args.name || undefined,
-                            location: args.location || undefined,
-                        },
+                        metadata: args.metadata,
                         blueprint: args.blueprint,
                         positions: args.positions
                     }
@@ -323,8 +319,8 @@ const Layout = objectType({
     definition(t) {
         t.id('layoutId')
         t.JSON('metadata')
-        t.JSON('blueprints')
-        t.JSON('positions')
+        t.list.JSON('blueprint')
+        t.list.JSON('positions')
         t.DateTime('created_at')
     },
 })

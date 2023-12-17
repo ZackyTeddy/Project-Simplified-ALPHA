@@ -55,11 +55,11 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Layout: { // root type
-    blueprints?: NexusGenScalars['JSON'] | null; // JSON
+    blueprint?: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
     created_at?: NexusGenScalars['DateTime'] | null; // DateTime
     layoutId?: string | null; // ID
     metadata?: NexusGenScalars['JSON'] | null; // JSON
-    positions?: NexusGenScalars['JSON'] | null; // JSON
+    positions?: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
   }
   Member: { // root type
     active?: boolean | null; // Boolean
@@ -99,11 +99,11 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnu
 
 export interface NexusGenFieldTypes {
   Layout: { // field return type
-    blueprints: NexusGenScalars['JSON'] | null; // JSON
+    blueprint: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
     created_at: NexusGenScalars['DateTime'] | null; // DateTime
     layoutId: string | null; // ID
     metadata: NexusGenScalars['JSON'] | null; // JSON
-    positions: NexusGenScalars['JSON'] | null; // JSON
+    positions: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
   }
   Member: { // field return type
     active: boolean | null; // Boolean
@@ -149,7 +149,7 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Layout: { // field return type name
-    blueprints: 'JSON'
+    blueprint: 'JSON'
     created_at: 'DateTime'
     layoutId: 'ID'
     metadata: 'JSON'
@@ -226,11 +226,10 @@ export interface NexusGenArgTypes {
       id: string; // ID!
     }
     updateLayout: { // args
-      blueprint?: NexusGenScalars['JSON'] | null; // JSON
+      blueprint: NexusGenScalars['JSON'][]; // [JSON!]!
       id: string; // ID!
-      location?: string | null; // String
-      name?: string | null; // String
-      positions?: NexusGenScalars['JSON'] | null; // JSON
+      metadata?: NexusGenScalars['JSON'] | null; // JSON
+      positions: NexusGenScalars['JSON'][]; // [JSON!]!
     }
     updateMember: { // args
       firstName?: string | null; // String

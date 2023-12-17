@@ -11,7 +11,7 @@ export default {
         "DateTime": {},
         "JSON": {},
         "Layout": {
-            "blueprints": [
+            "blueprint": [
                 1
             ],
             "created_at": [
@@ -149,20 +149,19 @@ export default {
                 2,
                 {
                     "blueprint": [
-                        1
+                        1,
+                        "[JSON!]!"
                     ],
                     "id": [
                         3,
                         "ID!"
                     ],
-                    "location": [
-                        6
-                    ],
-                    "name": [
-                        6
+                    "metadata": [
+                        1
                     ],
                     "positions": [
-                        1
+                        1,
+                        "[JSON!]!"
                     ]
                 }
             ],

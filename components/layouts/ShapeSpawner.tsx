@@ -5,15 +5,21 @@ import { Line, Rect } from 'react-konva';
 import { Button } from '../ui/button';
 import { BoxSelect, Minus, Square, Text } from 'lucide-react';
 import { useDispatch } from 'react-redux';
-import { pushToBlueprint } from '@/redux/slices/layoutSlice';
+import { pushToBlueprint, saveCurrentBlueprint } from '@/redux/slices/layoutSlice';
 import { ShapeItem } from '@/utils/types';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-const ShapeSpawner = () => {
+interface ShapeSpawnerProps {
+}
+
+const ShapeSpawner = ({} : ShapeSpawnerProps) => {
     const dispatch = useAppDispatch()
+    const layout: any = useAppSelector((state: any) => state.layout)
+    const layoutId: string = useAppSelector((state: any) => state.layout.id)
+
 
     return (
-        <div className='flex flex-col md:flex-row mx-3 my-5 p-2 rounded-md bg-slate-300 dark:bg-slate-600 h-1/2'>
+        <div className='flex flex-col md:flex-row justify-between mx-3 my-5 p-2 rounded-md bg-slate-300 dark:bg-slate-600 h-1/2'>
             <div className='grid grid-cols-2 md:flex md:flex-row gap-2 w-min'>
                 <Button variant='ghost' size='icon' aria-label='Square' onClick={() => {
                     dispatch(pushToBlueprint(
@@ -46,6 +52,11 @@ const ShapeSpawner = () => {
                     <Square />
                     <span className='sr-only'>Square</span>
                 </Button>
+            </div>
+            <div>
+                <Button variant="outline" onClick={() => {
+                    dispatch(saveCurrentBlueprint({id: layoutId, ...layout}));
+                }}>SAVE</Button>
             </div>
         </div>
     )
