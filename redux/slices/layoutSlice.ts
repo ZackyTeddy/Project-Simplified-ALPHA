@@ -63,9 +63,10 @@ export const layoutSlice = createSlice({
         setCurrentBlueprint: (state, action) => {
             state.id = action.payload.id;
             console.log('action.payload', action.payload)
-            if(action.payload.blueprints){
-                state.blueprint = action.payload.blueprints.blueprint;
+            if(action.payload.blueprint){
+                state.blueprint = action.payload.blueprint;
             }
+            console.log('action.payload > setBp', action.payload)
         },
         pushToBlueprint: (state, action) => {
             let newId = String(state.blueprint.length + 1)
@@ -76,7 +77,9 @@ export const layoutSlice = createSlice({
         updateElementInBlueprint: (state, action) => {
             if(action.payload.newAttributes){
                 let targetId = state.blueprint.findIndex((item) => item.id === action.payload.newAttributes.id)
+                console.log('targetId', targetId)
                 state.blueprint[targetId] = action.payload.newAttributes
+                console.log('update element attrs success', state.blueprint)
             } else {
                 console.log("update element attrs failed")
             }

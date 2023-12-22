@@ -64,7 +64,7 @@ const page = () => {
       <div className="hidden h-full flex-col md:flex">
         <Tabs defaultValue="blueprint" className="flex-1">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-          <h2 className="text-lg font-semibold">Layout Builder {!isLoading && details.metadata?.layoutName ? `- ${details.metadata.layoutName}` : <SpinnerInfinity />}</h2>
+          <h2 className="text-lg font-semibold">Layout Builder {!isLoading && layout?.getOneLayout.metadata?.layoutName ? `- ${layout.getOneLayout.metadata.layoutName}` : <SpinnerInfinity />}</h2>
           <TabsList className="grid grid-cols-3" defaultValue="blueprint">
             <TabsTrigger value="blueprint" >
               <HoverCard openDelay={200}>

@@ -40,8 +40,8 @@ const ShapeElement = ({props, isSelected, onSelect, onChange, spacing: SPACING}:
                     });
                     onChange({
                         ...props,
-                        x: e.target.x(),
-                        y: e.target.y()
+                        x: Math.round(e.target.x() / SPACING) * SPACING,
+                        y: Math.round(e.target.y() / SPACING) * SPACING
                     })
                 }}
                 onTransformEnd={(e: any) => {
@@ -60,10 +60,17 @@ const ShapeElement = ({props, isSelected, onSelect, onChange, spacing: SPACING}:
                         x: node.x(),
                         y: node.y(),
                         width: Math.max(5, node.width() * scaleX),
-                        height: Math.max(node.height() * scaleY),
+                        height: Math.max(5, node.height() * scaleY),
                     });
                 }}
-                {...props}
+                { ...props }
+                {
+                    ...{
+                        x: Math.round(props.x / SPACING) * SPACING,
+                        y: Math.round(props.y / SPACING) * SPACING
+                    }
+                }
+
             />
             {
                 isSelected && (
