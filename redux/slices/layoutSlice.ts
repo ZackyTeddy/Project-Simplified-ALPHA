@@ -11,6 +11,7 @@ interface LayoutState {
     },
     positions: any[],
     isLoading: boolean,
+    selectedElement: string | null,
     error: any,
 }
 
@@ -22,13 +23,14 @@ const initialState : LayoutState = {
     },
     positions: [],
     isLoading: false,
+    selectedElement: null,
     error: null,
 }
 
-export const saveCurrentBlueprint = createAsyncThunk(
-    'saveCurrentBlueprint', 
+export const saveCurrentLayout = createAsyncThunk(
+    'saveCurrentLayout', 
     async (params: any) => {
-    console.log('updating blueprint')
+    console.log('updating layout')
     await client.mutation({
         updateLayout: {
             __args: {
@@ -61,6 +63,7 @@ export const layoutSlice = createSlice({
     initialState,
     reducers: {
         setCurrentBlueprint: (state, action) => {
+            // @params - id, blueprint
             state.id = action.payload.id;
             console.log('action.payload', action.payload)
             if(action.payload.blueprint){
@@ -69,12 +72,19 @@ export const layoutSlice = createSlice({
             console.log('action.payload > setBp', action.payload)
         },
         pushToBlueprint: (state, action) => {
+            // @params - element props
             let newId = String(state.blueprint.length + 1)
             let newPush = {...action.payload, id: newId} as ShapeItem
             console.log('newPush', newPush)
             state.blueprint.push(newPush)
         },
+        setSelectedElement: (state, action) => {
+            // @params - index number as string
+            state.selectedElement = action.payload
+            console.log("ELEMENT SELECTED >> ", state.selectedElement)
+        },
         updateElementInBlueprint: (state, action) => {
+            // @params - modified element props
             if(action.payload.newAttributes){
                 let targetId = state.blueprint.findIndex((item) => item.id === action.payload.newAttributes.id)
                 console.log('targetId', targetId)
@@ -89,21 +99,21 @@ export const layoutSlice = createSlice({
         builder
             .addMatcher(
                 isAnyOf(
-                    saveCurrentBlueprint.pending,
+                    saveCurrentLayout.pending,
                 ),(state) => {
                     state.isLoading = true
                 }
             )
             .addMatcher(
                 isAnyOf(
-                    saveCurrentBlueprint.fulfilled,
+                    saveCurrentLayout.fulfilled,
                 ),(state, action) => {
                     state.isLoading = false
                 }
             )
             .addMatcher(
                 isAnyOf(
-                    saveCurrentBlueprint.rejected,
+                    saveCurrentLayout.rejected,
                 ),(state, action) => {
                     state.isLoading = false
                     state.error = action.error.message
@@ -117,6 +127,7 @@ export const {
     setCurrentBlueprint,
     pushToBlueprint,
     updateElementInBlueprint,
+    setSelectedElement,
 } = layoutSlice.actions
 
 export default layoutSlice.reducer

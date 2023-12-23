@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import {Circle, Layer, Stage} from 'react-konva'
+import { Stage } from 'react-konva'
 import LayoutBlueprintLayer from './LayoutBlueprintLayer'
-import { useAppDispatch } from '@/redux/hooks';
-import { setCurrentBlueprint } from '@/redux/slices/layoutSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setCurrentBlueprint, setSelectedElement } from '@/redux/slices/layoutSlice';
 
 interface LayoutStageProps {
   layout: any;
@@ -12,8 +12,11 @@ interface LayoutStageProps {
 
 const LayoutStage = ({layout} : LayoutStageProps) => {
   const dispatch = useAppDispatch();
+  const selectedId = useAppSelector((state) => state.layout.selectedElement)
 
-  const [selectedId, selectShape] = useState<string | null>(null);
+  const selectShape = (index: string | null) => {
+    dispatch(setSelectedElement(index))
+  }
 
   const STAGE_WIDTH = 1000, STAGE_HEIGHT = 450;
 
@@ -29,7 +32,9 @@ const LayoutStage = ({layout} : LayoutStageProps) => {
     console.log('layout', layout)
     dispatch(setCurrentBlueprint({
       id: layout.layoutId,
-      blueprint: layout.blueprint
+      blueprint: layout.blueprint,
+      metadata: layout.metadata,
+      positions: layout.positions
     }))
   },[])
 

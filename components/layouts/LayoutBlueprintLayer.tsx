@@ -17,7 +17,7 @@ interface LayoutBlueprintLayerProps {
   width: number;
   height: number;
   initBlueprint: any[];
-  shapeSelector: Dispatch<SetStateAction<string | null>>;
+  shapeSelector: (index: string | null) => void;
   selectedShape: string | null;
 }
 

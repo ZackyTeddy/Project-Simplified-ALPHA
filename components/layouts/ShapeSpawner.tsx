@@ -5,7 +5,7 @@ import { Line, Rect } from 'react-konva';
 import { Button } from '../ui/button';
 import { BoxSelect, Minus, Square, Text } from 'lucide-react';
 import { useDispatch } from 'react-redux';
-import { pushToBlueprint, saveCurrentBlueprint } from '@/redux/slices/layoutSlice';
+import { pushToBlueprint, saveCurrentLayout } from '@/redux/slices/layoutSlice';
 import { ShapeItem } from '@/utils/types';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
@@ -55,7 +55,7 @@ const ShapeSpawner = ({} : ShapeSpawnerProps) => {
             </div>
             <div>
                 <Button variant="outline" onClick={() => {
-                    dispatch(saveCurrentBlueprint({id: layoutId, ...layout}));
+                    dispatch(saveCurrentLayout({id: layoutId, ...layout}));
                 }}>SAVE</Button>
             </div>
         </div>
