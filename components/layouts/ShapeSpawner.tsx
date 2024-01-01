@@ -55,7 +55,9 @@ const ShapeSpawner = ({} : ShapeSpawnerProps) => {
             </div>
             <div>
                 <Button variant="outline" onClick={() => {
-                    dispatch(saveCurrentLayout({id: layoutId, ...layout}));
+                    dispatch(saveCurrentLayout({
+                        id: layoutId, ...layout
+                    }));
                 }}>SAVE</Button>
             </div>
         </div>

@@ -59,8 +59,8 @@ const ShapeElement = ({props, isSelected, onSelect, onChange, spacing: SPACING}:
                         ...props,
                         x: node.x(),
                         y: node.y(),
-                        width: Math.max(5, node.width() * scaleX),
-                        height: Math.max(5, node.height() * scaleY),
+                        width: Math.round(Math.max(5, node.width() * scaleX) / SPACING) * SPACING,
+                        height: Math.round(Math.max(5, node.height() * scaleY) / SPACING) * SPACING,
                     });
                 }}
                 { ...props }

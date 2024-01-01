@@ -68,8 +68,9 @@ export const layoutSlice = createSlice({
             console.log('action.payload', action.payload)
             if(action.payload.blueprint){
                 state.blueprint = action.payload.blueprint;
+                state.metadata = action.payload.metadata;
+                state.positions = action.payload.positions;
             }
-            console.log('action.payload > setBp', action.payload)
         },
         pushToBlueprint: (state, action) => {
             // @params - element props
