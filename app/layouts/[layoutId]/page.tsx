@@ -18,16 +18,17 @@ import useSWR from 'swr'
 import LayoutBlueprintElementDetails from '@/components/layouts/LayoutBlueprintElementDetails'
 
 const page = () => {
-    const fetcher = () => client.query({
-      getOneLayout: {
-          __args: {
-              id: layoutId || "0"
-          },
-          layoutId: true,
-          metadata: true,
-          blueprint: true,
-          positions: true
-      }
+
+  const fetcher = () => client.query({
+    getOneLayout: {
+        __args: {
+            id: layoutId || "0"
+        },
+        layoutId: true,
+        metadata: true,
+        blueprint: true,
+        positions: true
+    }
   })
 
   const { data: layout, error: getOneLayoutError, isLoading } = useSWR('getOneLayout', fetcher);
@@ -90,7 +91,7 @@ const page = () => {
                 <ShapeSpawner />
                 <div className="w-[1000px] h-[450px] border m-0">
                   {isLoading && <SpinnerDotted/>}
-                  {!isLoading && <LayoutStage layout={layout?.getOneLayout} />}
+                  {!isLoading && layout && <LayoutStage layout={layout?.getOneLayout} />}
                 </div>
               </div>
               <div className="md:order-1">

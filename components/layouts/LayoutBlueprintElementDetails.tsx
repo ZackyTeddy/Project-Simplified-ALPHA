@@ -29,15 +29,19 @@ const LayoutBlueprintElementDetails = () => {
             <div className='border rounded p-2 mt-1 mb-1'>
                 <div className='mb-1'>
                     <Label htmlFor="alias">Alias Name</Label>
-                    <Input id="alias" placeholder=''></Input>
+                    <Input id="alias" placeholder='' value={selectedElement?.alias ? selectedElement.alias : "" }></Input>
                 </div>
                 <div className='mb-1'>
                     <Label htmlFor="text">Display Text</Label>
-                    <Input id="text" placeholder=''></Input>
+                    <Input id="text" placeholder='' value={selectedElement?.text ? selectedElement.text : "" }></Input>
                 </div>
                 <div className='mb-1'>
-                    <Label htmlFor="alias">Display Color</Label>
-                    <Input id="alias" placeholder=''></Input>
+                    <Label htmlFor="alias">Fill Color</Label>
+                    <Input id="alias" placeholder='' value={selectedElement?.fill ? selectedElement.fill : "" }></Input>
+                </div>
+                <div className='mb-1'>
+                    <Label htmlFor="alias">Stroke Color</Label>
+                    <Input id="alias" placeholder='' value={selectedElement?.stroke ? selectedElement.stroke : "" }></Input>
                 </div>
             </div>
         </div>
