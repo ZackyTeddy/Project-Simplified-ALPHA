@@ -12,6 +12,7 @@ import {globalStore} from '../redux/globalStore'
 import React from 'react'
 import Head from 'next/head'
 import { Toaster } from '@/components/ui/toaster'
+import Submenu from '@/components/general/Submenu'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -33,11 +34,11 @@ export default function RootLayout({
       <body className={`${inter.className} h-screen`}>
         <Provider store={globalStore}>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            <Header/>
             <Container>
-              <div className="flex h-full">
+              <div className="flex flex-row h-screen">
                 <HomeSidebar/>
-                <div className="flex-grow">
+                <Submenu/>
+                <div className="flex-auto">
                   {children}
                 </div>
                 <Toaster/>

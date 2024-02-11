@@ -1,12 +1,15 @@
-//THIS IS TEST DATA
 
 import { Roles } from "./types"
+
+//THIS IS TEST DATA
 
 export const user = {
     name : "Zack",
     role : "Developer",
     status: "Agent"
 }
+
+//CONSTANTS
 
 export const TEAM_ROLES : Roles[] = [
     {callsign: "LEAD", role: "Lead", color: "#fd1d1d"},

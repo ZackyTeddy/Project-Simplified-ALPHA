@@ -3,125 +3,62 @@
 import React, { useState } from 'react'
 import { Button } from '../ui/button'
 import {user} from '../../utils/data'
-import { Bug, Cable, CalendarDays, Cog, Component, Grid3X3, Home, Inbox, Layers, Menu, Search, User, Users } from 'lucide-react'
+import { Bug, Cable, CalendarDays, Cog, Component, FishSymbol, Grid3X3, Home, Inbox, Layers, Menu, Moon, Search, Sun, User, Users } from 'lucide-react'
 import Link from 'next/link'
 import { Input } from '../ui/input'
 import { Separator } from '../ui/separator'
+import { useTheme } from 'next-themes'
+import { sidebarMainOptions, sidebarMiscOptions } from './SidebarOptions'
 
 const HomeSidebar = () => {
     const [open, setOpen] = useState(false);
+    const {theme, setTheme} = useTheme();
 
 
     return (
-        <div className="flex w-[60px] dark:bg-neutral-950 bg-neutral-100 h-full sticky">
-            <div
-                className={` ${
-                open ? "w-60 absolute" : "w-20 "
-                } flex flex-col h-full p-3 dark:bg-neutral-950 bg-neutral-100 shadow duration-300 z-50 border-r border`}
-            >
-                <div className='space-y-5 dark:bg-neutral-950 bg-neutral-100 h-full'>
-                    <div className={`flex items-center ${open ? "" : "justify-center"} pl-1 mb-7`}>
-                        <button onClick={() => setOpen(!open)}>
-                            <Menu />
-                        </button>
-                        <h2 className={`${!open ? "hidden" : ""} text-xl pl-1 font-bold dark:text-white`}>Shortcuts </h2>
-                    </div>
-                    <div className="relative">
-                        <span className="absolute inset-y-0 left-0 flex items-center py-4">
-                            <button
-                                type="submit"
-                                className="p-2 focus:outline-none"
-                            >
-                                <Search />
-                            </button>
-                        </span>
-                        <Input
-                            type="search"
-                            name="Search"
-                            placeholder={` ${open ? "Coming soon..." : ""}`}
-                            className={`${!open ? "" : "pl-10"} w-full py-2  text-sm rounded-md focus:outline-none`}
-                            disabled={!open}
-                        />
-                    </div>
-                    <div className="flex-1">
-                        <ul className="pt-2 pb-4 space-y-1 text-sm">
-                        <li className="rounded-sm">
-                            <Link
-                            href="/"
-                            className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                            <Home/>
-                            <span className={`${!open ? "hidden" : ""} dark:text-gray-100`}>Home</span>
-                            </Link>
-                        </li>
-                        <li className="rounded-sm">
-                            <Link
-                            href="/updates"
-                            className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                            <Inbox />
-                            <span className={`${!open ? "hidden" : ""} dark:text-gray-100`}>Updates</span>
-                            </Link>
-                        </li>
-                        <Separator />
-                        <li className="rounded-sm">
-                            <Link
-                            href="/teams"
-                            className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                            <Users />
-                            <span className={`${!open ? "hidden" : ""} dark:text-gray-100`}>Teams</span>
-                            </Link>
-                        </li>
-                        <li className="rounded-sm">
-                            <Link
-                            href="/layouts"
-                            className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                            <Grid3X3 />
-                            <span className={`${!open ? "hidden" : ""} dark:text-gray-100`}>Layouts</span>
-                            </Link>
-                        </li>
-                        <li className="rounded-sm">
-                            <Link
-                            href="/plans"
-                            className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                            <Layers />
-                            <span className={`${!open ? "hidden" : ""} dark:text-gray-100`}>Plans</span>
-                            </Link>
-                        </li>
-                        <Separator />
-                        <li className="rounded-sm">
-                            <Link
-                            href="/optimization"
-                            className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                            <Cable />
-                            <span className={`${!open ? "hidden" : ""} dark:text-gray-100`}>Optimization</span>
-                            </Link>
-                        </li>
-                        <li className="rounded-sm">
-                            <Link
-                            href="/bug"
-                            className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                            <Bug />
-                            <span className={`${!open ? "hidden" : ""} dark:text-gray-100`}>Bug Report</span>
-                            </Link>
-                        </li>
-                        <li className="rounded-sm">
-                            <Link
-                            href="/settings"
-                            className="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                            <Cog />
-                            <span className={`${!open ? "hidden" : ""} dark:text-gray-100`}>Settings</span>
-                            </Link>
-                        </li>
-                        </ul>
-                    </div>
-                    </div>
+        <div className="w-16 dark:bg-neutral-900 bg-neutral-100 h-screen">
+                <div className='flex flex-col justify-between space-y-4 dark:bg-neutral-800 bg-neutral-200 border-r rounded-r-lg shadow-lg h-full'>
+                        <div className='flex flex-col justify-center items-center pt-2 pb-4 space-y-1 text-sm'>
+                            <FishSymbol/>
+                        </div>
+                        <div className="flex flex-col justify-center items-center pt-2 pb-4 space-y-1 text-sm">
+                            {
+                                sidebarMainOptions.map((option, i) => 
+                                    <div key={i} className="rounded-sm w-fit">
+                                        <Link
+                                        href={option.href}
+                                        className="flex items-center p-2 space-x-3 rounded-md dark:hover:bg-neutral-900 hover:bg-neutral-300 group"
+                                        key={i}
+                                        >
+                                        {option.icon}
+                                        <span className="group-hover:scale-100 scale-0 dark:text-gray-100 rounded-sm shadow-md bg-neutral-300 dark:bg-neutral-800 p-2 m-2 min-w-max text-xs transition-all duration-100 absolute left-14 origin-left font-poppins">{option.title}</span>
+                                        </Link>
+                                    </div>
+                                )
+                            }
+                        </div>
+                        <div className="flex flex-col space-between justify-center items-center pt-2 pb-4 space-y-1 text-sm">
+                            {
+                                sidebarMiscOptions.map((option, i) => 
+                                    <div key={i} className="rounded-sm">
+                                        <Link
+                                        href={option.href}
+                                        className="flex items-center p-2 space-x-3 rounded-md dark:hover:bg-neutral-900 hover:bg-neutral-300 group"
+                                        key={i}
+                                        >
+                                        {option.icon}
+                                        <span className="group-hover:scale-100 scale-0 dark:text-gray-100 rounded-sm shadow-md bg-neutral-300 dark:bg-neutral-800 p-2 m-2 min-w-max text-xs transition-all duration-100 absolute left-14 origin-left font-poppins">{option.title}</span>
+                                        </Link>
+                                    </div>
+                                )
+                            }
+                            <Button variant="ghost" size="icon" aria-label="Toggle Theme" className="group dark:hover:bg-neutral-900" 
+                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+                                <Sun className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                                <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"/>
+                                <span className="group-hover:scale-100 scale-0 dark:text-gray-100 rounded-sm shadow-md bg-neutral-300 dark:bg-neutral-800 p-2 m-2 min-w-max text-xs transition-all duration-100 absolute left-14 origin-left font-poppins">Toggle Theme</span> 
+                            </Button>
+                        </div>
                 </div>
             </div>
     )

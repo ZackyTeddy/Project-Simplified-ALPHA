@@ -128,7 +128,7 @@ const UpdateTeamMemberForm = ({details, refreshFunction} : UpdateTeamMemberProps
                     />
                     <FormField
                     control={form.control}
-                    name="firstName"
+                    name="roles"
                     render={({ field }) => (
                         <FormItem>
                             <div className="grid grid-cols-4 items-center gap-4">

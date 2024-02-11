@@ -21,7 +21,6 @@ type Layout {
 }
 
 type Member {
-  active: Boolean
   created_at: DateTime
   firstName: String
   lastName: String
@@ -29,6 +28,7 @@ type Member {
   memberId: ID
   region: String
   roles: [String]
+  status: String
   teams: String
 }
 
@@ -46,7 +46,7 @@ type Mutation {
 
 type Query {
   getLayouts(sortBy: SortOrder): [Layout]
-  getMembers(id: String!): [Member]
+  getMembers(id: String!, sortBy: SortOrder): [Member]
   getOneLayout(id: String!): Layout
   getOneTeam(id: String!): Team
   getTeams(sortBy: SortOrder): [Team]
