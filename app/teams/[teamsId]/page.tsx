@@ -93,54 +93,57 @@ export default function Team(){
                 <div className="w-1/5 h-full flex flex-col">
                     <Card className="w-full">
                         <CardHeader>
-                            <CardTitle>
+                            <CardTitle className="font-poppins">
                                 Team Details
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription className="font-poppins">
                                 Edit team details here
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="grid gap-6">
                             <div className='grid gap-2'>
-                                <Label htmlFor="name">
+                                <Label htmlFor="name" className="font-poppins">
                                     Team Name
                                 </Label>
                                 <Input id="name" 
                                     value={details.name}
+                                    className="font-poppins"
                                     onChange={(e) => {setDetails((prev) => { return {...prev, name: e.target.value}})}}/>
                             </div>
                             <div className='grid gap-2'>
-                                <Label htmlFor="location">
+                                <Label htmlFor="location" className="font-poppins">
                                     Campus Location
                                 </Label>
                                 <Input id="location" 
                                     value={details.location} 
+                                    className="font-poppins"
                                     onChange={(e) => {setDetails((prev) => { return {...prev, location: e.target.value}})}} 
                                     placeholder="Campus Name"/>
                             </div>
                             <div className='grid gap-2'>
-                                <Label htmlFor="region">
+                                <Label htmlFor="region" className="font-poppins">
                                     Campus Region
                                 </Label>
                                 <Input id="region" 
                                     value={details.region} 
+                                    className="font-poppins"
                                     onChange={(e) => {setDetails((prev) => { return {...prev, region: e.target.value}})}} 
                                     placeholder="Campus Region/Country/State"/>
                             </div>
                             <div className='grid gap-2'>
-                                <Label htmlFor="timeslot">
+                                <Label htmlFor="timeslot" className="font-poppins">
                                     Team Timeslot
                                 </Label>
                                 <Select value={details.timeslot} 
                                     onValueChange={(val) => {setDetails((prev) => { return {...prev, name: val}})}} 
                                     defaultValue="">
                                     <SelectTrigger id="timeslot">
-                                        <SelectValue placeholder="Select timeslot..." />
+                                        <SelectValue className="font-poppins" placeholder="Select timeslot..." />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {
                                             timeslots && timeslots.map((timeslot, key) => (
-                                                <SelectItem key={key} value={timeslot}>{timeslot}</SelectItem>
+                                                <SelectItem className="font-poppins" key={key} value={timeslot}>{timeslot}</SelectItem>
                                             ))
                                         }
                                         
@@ -151,29 +154,35 @@ export default function Team(){
                     </Card>
                     <Card className="w-full mt-4">
                         <CardHeader>
-                            <CardTitle>
+                            <CardTitle className="font-poppins">
                                 Team Utility
                             </CardTitle>
-                            <CardDescription>
-                                Toggle team statuses
+                            <CardDescription className="font-poppins">
+                                Flag team statuses
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="grid gap-6">
                             <div className='flex flex-row items-center gap-2'>
                                 <Checkbox />
-                                <Label htmlFor="bench">
-                                    Bench Team
+                                <Label htmlFor="incomplete" className="font-poppins">
+                                    Incomplete Team
                                 </Label>
                             </div>
                             <div className='flex flex-row items-center gap-2'>
                                 <Checkbox />
-                                <Label htmlFor="bench">
-                                    Bench Team
+                                <Label htmlFor="temp" className="font-poppins">
+                                    Temporary Team
                                 </Label>
                             </div>
                             <div className='flex flex-row items-center gap-2'>
                                 <Checkbox />
-                                <Label htmlFor="bench">
+                                <Label htmlFor="ready" className="font-poppins">
+                                    Team Ready for Deployment
+                                </Label>
+                            </div>
+                            <div className='flex flex-row items-center gap-2'>
+                                <Checkbox />
+                                <Label htmlFor="bench" className="font-poppins">
                                     Bench Team
                                 </Label>
                             </div>
@@ -183,17 +192,17 @@ export default function Team(){
                 <div className="px-4 w-4/5">
                     <Card className="w-full">
                         <CardHeader>
-                            <CardTitle>
+                            <CardTitle className="font-poppins">
                                 Team Members
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription className="font-poppins">
                                 Manage team members here
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="grid gap-2 grid-cols-3 overflow-y-auto">
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>Active / Seasoned</CardTitle>
+                                    <CardTitle className="font-poppins">Active / Seasoned</CardTitle>
                                 </CardHeader>
                                 <CardContent className="flex flex-col">
                                 {getMembersError && <p>Oops, something went wrong!</p>}
@@ -207,7 +216,7 @@ export default function Team(){
                             </Card>
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>New / In Training</CardTitle>
+                                    <CardTitle className="font-poppins">New / In Training</CardTitle>
                                 </CardHeader>
                                 <CardContent className="flex flex-col">
                                     {getMembersError && <p>Oops, something went wrong!</p>}
@@ -221,7 +230,7 @@ export default function Team(){
                             </Card>
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>Out of Action</CardTitle>
+                                    <CardTitle className="font-poppins">Out of Action</CardTitle>
                                 </CardHeader>
                                 <CardContent className="flex flex-col">
                                 {getMembersError && <p>Oops, something went wrong!</p>}

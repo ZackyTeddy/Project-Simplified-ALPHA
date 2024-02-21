@@ -238,6 +238,7 @@ export interface NexusGenArgTypes {
       location?: string | null; // String
       region?: string | null; // String
       roles: string[]; // [String!]!
+      status?: string | null; // String
     }
     updateTeam: { // args
       id: string; // ID!

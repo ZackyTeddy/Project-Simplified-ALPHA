@@ -1,5 +1,5 @@
 
-import { Roles } from "./types"
+import { MemberStatus, Roles } from "./types"
 
 //THIS IS TEST DATA
 
@@ -10,6 +10,12 @@ export const user = {
 }
 
 //CONSTANTS
+
+export const MEMBER_STATUS : MemberStatus[] = [
+    {status: "new", description: "New / In - Training"},
+    {status: "active", description: "Active / Seasoned"},
+    {status: "inactive", description: "Out of Action"},
+]
 
 export const TEAM_ROLES : Roles[] = [
     {callsign: "LEAD", role: "Lead", color: "#fd1d1d"},

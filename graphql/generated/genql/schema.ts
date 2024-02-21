@@ -102,7 +102,7 @@ export interface MutationGenqlSelection{
     deleteMember?: (MemberGenqlSelection & { __args: {id: Scalars['ID']} })
     deleteTeam?: (TeamGenqlSelection & { __args: {id: Scalars['ID']} })
     updateLayout?: (LayoutGenqlSelection & { __args: {blueprint: Scalars['JSON'][], id: Scalars['ID'], metadata?: (Scalars['JSON'] | null), positions: Scalars['JSON'][]} })
-    updateMember?: (MemberGenqlSelection & { __args: {firstName?: (Scalars['String'] | null), id: Scalars['ID'], lastName?: (Scalars['String'] | null), location?: (Scalars['String'] | null), region?: (Scalars['String'] | null), roles: Scalars['String'][]} })
+    updateMember?: (MemberGenqlSelection & { __args: {firstName?: (Scalars['String'] | null), id: Scalars['ID'], lastName?: (Scalars['String'] | null), location?: (Scalars['String'] | null), region?: (Scalars['String'] | null), roles: Scalars['String'][], status?: (Scalars['String'] | null)} })
     updateTeam?: (TeamGenqlSelection & { __args: {id: Scalars['ID'], leader?: (Scalars['String'] | null), name?: (Scalars['String'] | null)} })
     __typename?: boolean | number
     __scalar?: boolean | number

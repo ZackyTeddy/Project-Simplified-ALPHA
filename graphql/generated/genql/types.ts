@@ -186,6 +186,9 @@ export default {
                     "roles": [
                         5,
                         "[String!]!"
+                    ],
+                    "status": [
+                        5
                     ]
                 }
             ],

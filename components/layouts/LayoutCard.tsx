@@ -52,27 +52,27 @@ const LayoutCard = ({
             </div>
             </ContextMenuTrigger>
             <ContextMenuContent className="w-40">
-            <ContextMenuItem>Manage Team</ContextMenuItem>
+            <ContextMenuItem className="font-poppins">Manage Team</ContextMenuItem>
             <ContextMenuSub>
-                <ContextMenuSubTrigger>Quick Actions</ContextMenuSubTrigger>
+                <ContextMenuSubTrigger className="font-poppins">Quick Actions</ContextMenuSubTrigger>
                 <ContextMenuSubContent className="w-48">
-                    <ContextMenuItem>
+                    <ContextMenuItem className="font-poppins">
                         Deploy for Plan
                     </ContextMenuItem>
                     <ContextMenuSeparator />
-                    <ContextMenuItem>
+                    <ContextMenuItem className="font-poppins">
                         Use as Template
                     </ContextMenuItem>
                 </ContextMenuSubContent>
             </ContextMenuSub>
             <ContextMenuSeparator />
-            <ContextMenuItem>Bench Team</ContextMenuItem>
-            <ContextMenuItem>Disband Team</ContextMenuItem>
+            <ContextMenuItem className="font-poppins">Bench Team</ContextMenuItem>
+            <ContextMenuItem className="font-poppins">Disband Team</ContextMenuItem>
             </ContextMenuContent>
         </ContextMenu>
         <div className="p-2 space-y-1 text-sm">
-            <h3 className="font-medium leading-none">{data.metadata.layoutName ? data.metadata.layoutName : "Jesus Squad"}</h3>
-            <p className="text-xs text-muted-foreground">{data.leader ? data.leader : "Jesus the Good Shpherd"}</p>
+            <h3 className="font-medium leading-none font-poppins">{data.metadata.layoutName ? data.metadata.layoutName : "Jesus Squad"}</h3>
+            <p className="text-xs text-muted-foreground font-poppins">{data.leader ? data.leader : "Jesus the Good Shpherd"}</p>
         </div>
         </div>
     )

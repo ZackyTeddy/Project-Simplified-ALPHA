@@ -50,14 +50,14 @@ const page = () => {
       <div className="hidden h-full flex-col md:flex">
         <Tabs defaultValue="blueprint" className="flex-1">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-          <h2 className="text-lg font-semibold">Layout Builder {!isLoading && layoutName ? `- ${layoutName}` : <SpinnerInfinity />}</h2>
+          <h2 className="text-lg font-semibold font-poppins">Layout Builder {!isLoading && layoutName ? `- ${layoutName}` : <SpinnerInfinity />}</h2>
           <TabsList className="grid grid-cols-3" defaultValue="blueprint">
             <TabsTrigger value="blueprint" >
               <HoverCard openDelay={200}>
                 <HoverCardTrigger asChild>
                   <Frame className='h-[20px] w-[20px]'/>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-fit text-sm" side="bottom">
+                <HoverCardContent className="w-fit text-sm font-poppins" side="bottom">
                   Blueprint Layer
                 </HoverCardContent>
               </HoverCard>
@@ -67,7 +67,7 @@ const page = () => {
                 <HoverCardTrigger asChild>
                   <MapPin className='h-[20px] w-[20px]'/>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-fit text-sm" side="bottom">
+                <HoverCardContent className="w-fit text-sm font-poppins" side="bottom">
                   Positions Layer
                 </HoverCardContent>
               </HoverCard>
@@ -77,7 +77,7 @@ const page = () => {
                 <HoverCardTrigger asChild>
                   <ArrowDownUp className='h-[20px] w-[20px]'/>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-fit text-sm" side="bottom">
+                <HoverCardContent className="w-fit text-sm font-poppins" side="bottom">
                   Flows Layer
                 </HoverCardContent>
               </HoverCard>

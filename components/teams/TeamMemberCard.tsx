@@ -54,11 +54,11 @@ const TeamMemberCard = ({data, refreshFunction}: TeamMemberCardProps ) => {
                         <div className='flex items-center justify-center rounded-full border w-[24px] h-[24px]'>
                             <Avatar className='w-[18px] h-[18px]'>
                                 <AvatarImage src="/avatars/01.png" />
-                                <AvatarFallback className='text-xs'>{getInitials()}</AvatarFallback>
+                                <AvatarFallback className='text-xs font-poppins'>{getInitials()}</AvatarFallback>
                             </Avatar>
                         </div>
                         <div className='flex justify-between w-full items-center'>
-                            <p className="text-sm font-medium leading-none">{`${data?.firstName} ${data?.lastName}`}</p>
+                            <p className="text-sm font-medium leading-none font-poppins">{`${data?.firstName} ${data?.lastName}`}</p>
                             <div className='flex overflow-hidden h-5 justify-start'>
                                 {makeRoleBadges()}
                             </div>
@@ -68,12 +68,12 @@ const TeamMemberCard = ({data, refreshFunction}: TeamMemberCardProps ) => {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Member Details</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="font-poppins">Member Details</DialogTitle>
+                    <DialogDescription className="font-poppins">
                     Edit member details here then save changes below!
                     </DialogDescription>
                     <UpdateTeamMemberForm details={data} refreshFunction={refreshFunction}/>
-                    <DialogFooter>
+                    <DialogFooter className="font-poppins">
                         Remember to save your changes!
                     </DialogFooter>
                 </DialogHeader>

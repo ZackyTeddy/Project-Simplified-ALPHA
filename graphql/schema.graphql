@@ -40,7 +40,7 @@ type Mutation {
   deleteMember(id: ID!): Member
   deleteTeam(id: ID!): Team
   updateLayout(blueprint: [JSON!]!, id: ID!, metadata: JSON, positions: [JSON!]!): Layout
-  updateMember(firstName: String, id: ID!, lastName: String, location: String, region: String, roles: [String!]!): Member
+  updateMember(firstName: String, id: ID!, lastName: String, location: String, region: String, roles: [String!]!, status: String): Member
   updateTeam(id: ID!, leader: String, name: String): Team
 }
 

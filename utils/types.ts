@@ -13,6 +13,11 @@ export type Roles = {
     color: string;
 }
 
+export type MemberStatus = {
+    status: string;
+    description: string;
+}
+
 export type ShapeItem = {
     id : string,
     shape: string,

@@ -183,7 +183,8 @@ const Mutation = mutationType({
                 lastName: stringArg(),
                 location: stringArg(),
                 region: stringArg(),
-                roles: nonNull(list(nonNull(stringArg())))
+                roles: nonNull(list(nonNull(stringArg()))),
+                status: stringArg()
             },
             resolve: (_, args, ctx) => {
                 try {
@@ -194,7 +195,8 @@ const Mutation = mutationType({
                         lastName: args.lastName || undefined,
                         location: args.location || undefined,
                         region: args.region || undefined,
-                        roles: args.roles || null
+                        roles: args.roles || null,
+                        status: args.status || undefined
                     }
                     })
                 } catch (error) {

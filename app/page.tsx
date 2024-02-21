@@ -14,8 +14,6 @@ import LayoutCard from "@/components/layouts/LayoutCard"
 
 
 export default function Home() {
-//TODO fix data queries depending on tab
-//  const [teams, setTeams] = useState([{}])
 
   const fetcher = () => client.query({
       getTeams: {
@@ -42,13 +40,13 @@ export default function Home() {
             <Tabs defaultValue="teams" className="h-full space-y-6">
               <div className="space-between flex items-center">
                 <TabsList>
-                  <TabsTrigger value="teams">
+                  <TabsTrigger className="font-poppins" value="teams">
                     Teams
                   </TabsTrigger>
-                  <TabsTrigger value="layouts">
+                  <TabsTrigger className="font-poppins" value="layouts">
                     Layouts
                   </TabsTrigger>
-                  <TabsTrigger value="plans">
+                  <TabsTrigger className="font-poppins" value="plans">
                     Plans
                   </TabsTrigger>
                 </TabsList>
@@ -58,10 +56,10 @@ export default function Home() {
               <TabsContent value="teams" className="border-none p-0 outline-none">
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
-                    <h2 className="text-2xl font-semibold tracking-tight">
+                    <h2 className="text-2xl font-semibold tracking-tight font-poppins">
                       Your teams
                     </h2>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground font-poppins">
                       Manage and prepare Carriers
                     </p>
                   </div>
@@ -88,10 +86,10 @@ export default function Home() {
                 <TabsContent value="layouts" className="border-none p-0 outline-none">
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
-                    <h2 className="text-2xl font-semibold tracking-tight">
+                    <h2 className="text-2xl font-semibold tracking-tight font-poppins">
                       Your layouts
                     </h2>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground font-poppins">
                       Map out and strategize locations
                     </p>
                   </div>
@@ -118,10 +116,10 @@ export default function Home() {
                 <TabsContent value="plans" className="border-none p-0 outline-none">
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
-                    <h2 className="text-2xl font-semibold tracking-tight">
+                    <h2 className="text-2xl font-semibold tracking-tight font-poppins">
                       Your plans
                     </h2>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground font-poppins">
                       Time to deploy and execute
                     </p>
                   </div>
@@ -130,16 +128,9 @@ export default function Home() {
                 <div className="relative">
                   <ScrollArea>
                     <div className="flex space-x-4 pb-4">
-                      {/* {listenNowAlbums.map((album) => (
-                        <AlbumArtwork
-                          key={album.name}
-                          album={album}
-                          className="w-[250px]"
-                          aspectRatio="portrait"
-                          width={250}
-                          height={330}
-                        />
-                      ))} */}
+                      {
+                        
+                      }
                     </div>
                     <ScrollBar orientation="horizontal" />
                   </ScrollArea>
