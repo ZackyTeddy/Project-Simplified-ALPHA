@@ -13,6 +13,7 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 import { Button } from "@/components/ui/button";
 import AddNewMember from "@/components/teams/AddNewMember";
 import { useEffect, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function Team(){
     const fetcher = () => client.query({
@@ -28,14 +29,16 @@ export default function Team(){
         },
         getMembers: {
             __args: {
-                id: teamId || "0"
+                id: teamId || "0",
+                sortBy: "asc"
             },
             memberId: true,
             firstName: true,
             lastName: true,
             location: true,
             region: true,
-            roles: true
+            roles: true,
+            status: true
         }
     })
 
@@ -67,10 +70,15 @@ export default function Team(){
         })
     }, [members])
 
+    useEffect(() => {
+        console.log('members.getMembers', members?.getMembers)
+
+    },[members])
+
 
     return(
-        <div className="h-full px-4 py-6 lg:px-8">
-            <div className="space-between flex items-center">
+        <div className="h-full px-2 py-6 ">
+            {/* <div className="space-between flex items-center">
                 <div className="hidden space-y-2 p-5 pb-3 md:block">
                     <div className="space-y-0.5">
                     <h2 className="text-2xl font-bold tracking-tight">Manage Team</h2>
@@ -80,59 +88,62 @@ export default function Team(){
                     </div>
                     <Separator className="my-6" />
                 </div>
-            </div>
+            </div> */}
             <div className="flex flex-row">
-                <div className="px-4 w-1/3">
+                <div className="w-1/5 h-full flex flex-col">
                     <Card className="w-full">
                         <CardHeader>
-                            <CardTitle>
+                            <CardTitle className="font-poppins">
                                 Team Details
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription className="font-poppins">
                                 Edit team details here
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="grid gap-6">
                             <div className='grid gap-2'>
-                                <Label htmlFor="name">
+                                <Label htmlFor="name" className="font-poppins">
                                     Team Name
                                 </Label>
                                 <Input id="name" 
                                     value={details.name}
+                                    className="font-poppins"
                                     onChange={(e) => {setDetails((prev) => { return {...prev, name: e.target.value}})}}/>
                             </div>
                             <div className='grid gap-2'>
-                                <Label htmlFor="location">
+                                <Label htmlFor="location" className="font-poppins">
                                     Campus Location
                                 </Label>
                                 <Input id="location" 
                                     value={details.location} 
+                                    className="font-poppins"
                                     onChange={(e) => {setDetails((prev) => { return {...prev, location: e.target.value}})}} 
                                     placeholder="Campus Name"/>
                             </div>
                             <div className='grid gap-2'>
-                                <Label htmlFor="region">
+                                <Label htmlFor="region" className="font-poppins">
                                     Campus Region
                                 </Label>
                                 <Input id="region" 
                                     value={details.region} 
+                                    className="font-poppins"
                                     onChange={(e) => {setDetails((prev) => { return {...prev, region: e.target.value}})}} 
                                     placeholder="Campus Region/Country/State"/>
                             </div>
                             <div className='grid gap-2'>
-                                <Label htmlFor="timeslot">
+                                <Label htmlFor="timeslot" className="font-poppins">
                                     Team Timeslot
                                 </Label>
                                 <Select value={details.timeslot} 
                                     onValueChange={(val) => {setDetails((prev) => { return {...prev, name: val}})}} 
                                     defaultValue="">
                                     <SelectTrigger id="timeslot">
-                                        <SelectValue placeholder="Select timeslot..." />
+                                        <SelectValue className="font-poppins" placeholder="Select timeslot..." />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {
-                                            timeslots && timeslots.map((timeslot) => (
-                                                <SelectItem value={timeslot}>{timeslot}</SelectItem>
+                                            timeslots && timeslots.map((timeslot, key) => (
+                                                <SelectItem className="font-poppins" key={key} value={timeslot}>{timeslot}</SelectItem>
                                             ))
                                         }
                                         
@@ -141,24 +152,96 @@ export default function Team(){
                             </div>
                         </CardContent>
                     </Card>
+                    <Card className="w-full mt-4">
+                        <CardHeader>
+                            <CardTitle className="font-poppins">
+                                Team Utility
+                            </CardTitle>
+                            <CardDescription className="font-poppins">
+                                Flag team statuses
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="grid gap-6">
+                            <div className='flex flex-row items-center gap-2'>
+                                <Checkbox />
+                                <Label htmlFor="incomplete" className="font-poppins">
+                                    Incomplete Team
+                                </Label>
+                            </div>
+                            <div className='flex flex-row items-center gap-2'>
+                                <Checkbox />
+                                <Label htmlFor="temp" className="font-poppins">
+                                    Temporary Team
+                                </Label>
+                            </div>
+                            <div className='flex flex-row items-center gap-2'>
+                                <Checkbox />
+                                <Label htmlFor="ready" className="font-poppins">
+                                    Team Ready for Deployment
+                                </Label>
+                            </div>
+                            <div className='flex flex-row items-center gap-2'>
+                                <Checkbox />
+                                <Label htmlFor="bench" className="font-poppins">
+                                    Bench Team
+                                </Label>
+                            </div>
+                        </CardContent>
+                    </Card>
                 </div>
-                <div className="px-4 grow">
+                <div className="px-4 w-4/5">
                     <Card className="w-full">
                         <CardHeader>
-                            <CardTitle>
+                            <CardTitle className="font-poppins">
                                 Team Members
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription className="font-poppins">
                                 Manage team members here
                             </CardDescription>
                         </CardHeader>
-                        <CardContent className="grid gap-6 grid-cols-2 overflow-y-auto">
-                        {getMembersError && <p>Oops, something went wrong!</p>}
-                        {
-                            members?.getMembers && members.getMembers.map((member: any, i: number) => (
-                                <TeamMemberCard key={member.memberId} data={member} refreshFunction={refreshMembers}/>
-                            ))
-                        }
+                        <CardContent className="grid gap-2 grid-cols-3 overflow-y-auto">
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle className="font-poppins">Active / Seasoned</CardTitle>
+                                </CardHeader>
+                                <CardContent className="flex flex-col">
+                                {getMembersError && <p>Oops, something went wrong!</p>}
+                                    {
+                                        members?.getMembers && members.getMembers.flatMap((element) => 
+                                            element && element?.status === "active"
+                                            ? <TeamMemberCard key={element.memberId} data={element} refreshFunction={refreshMembers}/>
+                                            : [])
+                                    }
+                                </CardContent>
+                            </Card>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle className="font-poppins">New / In Training</CardTitle>
+                                </CardHeader>
+                                <CardContent className="flex flex-col">
+                                    {getMembersError && <p>Oops, something went wrong!</p>}
+                                    {
+                                        members?.getMembers && members.getMembers.flatMap((element) => 
+                                            element && element?.status === "new"
+                                            ? <TeamMemberCard key={element.memberId} data={element} refreshFunction={refreshMembers}/>
+                                            : [])
+                                    }
+                                </CardContent>
+                            </Card>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle className="font-poppins">Out of Action</CardTitle>
+                                </CardHeader>
+                                <CardContent className="flex flex-col">
+                                {getMembersError && <p>Oops, something went wrong!</p>}
+                                    {
+                                        members?.getMembers && members.getMembers.flatMap((element) => 
+                                            element && element?.status === "inactive"
+                                            ? <TeamMemberCard key={element.memberId} data={element} refreshFunction={refreshMembers}/>
+                                            : [])
+                                    }
+                                </CardContent>
+                            </Card>
                         <AddNewMember teamId={teamId} refreshFunction={refreshMembers}/>
                         </CardContent>
                     </Card>

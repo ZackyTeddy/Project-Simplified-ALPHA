@@ -26,12 +26,20 @@ const TeamMemberCard = ({data, refreshFunction}: TeamMemberCardProps ) => {
             data.roles.map((role: string, i : number) => {
                 let badgeData = TEAM_ROLES.find((roleData) => roleData.callsign === role) || {callsign: "ERR", role: "Error", color: "#fd1d1d"}
                 badgeArray.push(
-                    <Badge variant="outline" key={i} style={{backgroundColor: badgeData.color}}>{badgeData.role}</Badge>
+                    // <Badge variant="outline" key={i} className='text-[10px]' style={{backgroundColor: badgeData.color}}>
+                    // </Badge>
+                    <div className='w-1 rounded p-1' key={i} style={{backgroundColor: badgeData.color}}>
+
+                    </div>
                 )
             })
         } else {
             badgeArray.push(
-                <Badge variant="outline">Usher</Badge>
+                // <Badge variant="outline">
+                // </Badge>
+                <div key={0} className='w-1 rounded p-1 border'>
+
+                </div>
             )
         }
         return badgeArray;
@@ -41,15 +49,17 @@ const TeamMemberCard = ({data, refreshFunction}: TeamMemberCardProps ) => {
     return(
         <Dialog>
             <DialogTrigger>
-                <div className="flex items-center justify-between space-x-4 col-span-1 hover:bg-slate-800 p-1 rounded-xl">
-                    <div className="flex items-center space-x-4">
-                        <Avatar>
-                            <AvatarImage src="/avatars/01.png" />
-                            <AvatarFallback>{getInitials()}</AvatarFallback>
-                        </Avatar>
-                        <div className='text-left'>
-                            <p className="text-sm font-medium leading-none">{`${data?.firstName} ${data?.lastName}`}</p>
-                            <div className='overflow-hidden h-6'>
+                <div className="flex items-center w-full justify-between space-x-4 col-span-1 hover:bg-slate-800 p-1 rounded-xl">
+                    <div className="flex items-center space-x-4 w-full">
+                        <div className='flex items-center justify-center rounded-full border w-[24px] h-[24px]'>
+                            <Avatar className='w-[18px] h-[18px]'>
+                                <AvatarImage src="/avatars/01.png" />
+                                <AvatarFallback className='text-xs font-poppins'>{getInitials()}</AvatarFallback>
+                            </Avatar>
+                        </div>
+                        <div className='flex justify-between w-full items-center'>
+                            <p className="text-sm font-medium leading-none font-poppins">{`${data?.firstName} ${data?.lastName}`}</p>
+                            <div className='flex overflow-hidden h-5 justify-start'>
                                 {makeRoleBadges()}
                             </div>
                         </div>
@@ -58,12 +68,12 @@ const TeamMemberCard = ({data, refreshFunction}: TeamMemberCardProps ) => {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Member Details</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="font-poppins">Member Details</DialogTitle>
+                    <DialogDescription className="font-poppins">
                     Edit member details here then save changes below!
                     </DialogDescription>
                     <UpdateTeamMemberForm details={data} refreshFunction={refreshFunction}/>
-                    <DialogFooter>
+                    <DialogFooter className="font-poppins">
                         Remember to save your changes!
                     </DialogFooter>
                 </DialogHeader>

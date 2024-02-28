@@ -21,7 +21,6 @@ type Layout {
 }
 
 type Member {
-  active: Boolean
   created_at: DateTime
   firstName: String
   lastName: String
@@ -29,6 +28,7 @@ type Member {
   memberId: ID
   region: String
   roles: [String]
+  status: String
   teams: String
 }
 
@@ -40,13 +40,13 @@ type Mutation {
   deleteMember(id: ID!): Member
   deleteTeam(id: ID!): Team
   updateLayout(blueprint: [JSON!]!, id: ID!, metadata: JSON, positions: [JSON!]!): Layout
-  updateMember(firstName: String, id: ID!, lastName: String, location: String, region: String, roles: [String!]!): Member
+  updateMember(firstName: String, id: ID!, lastName: String, location: String, region: String, roles: [String!]!, status: String): Member
   updateTeam(id: ID!, leader: String, name: String): Team
 }
 
 type Query {
   getLayouts(sortBy: SortOrder): [Layout]
-  getMembers(id: String!): [Member]
+  getMembers(id: String!, sortBy: SortOrder): [Member]
   getOneLayout(id: String!): Layout
   getOneTeam(id: String!): Team
   getTeams(sortBy: SortOrder): [Team]

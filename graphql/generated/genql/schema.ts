@@ -7,8 +7,8 @@ export type Scalars = {
     DateTime: any,
     JSON: any,
     ID: string,
-    Boolean: boolean,
     String: string,
+    Boolean: boolean,
 }
 
 export interface Layout {
@@ -21,7 +21,6 @@ export interface Layout {
 }
 
 export interface Member {
-    active: (Scalars['Boolean'] | null)
     created_at: (Scalars['DateTime'] | null)
     firstName: (Scalars['String'] | null)
     lastName: (Scalars['String'] | null)
@@ -29,6 +28,7 @@ export interface Member {
     memberId: (Scalars['ID'] | null)
     region: (Scalars['String'] | null)
     roles: ((Scalars['String'] | null)[] | null)
+    status: (Scalars['String'] | null)
     teams: (Scalars['String'] | null)
     __typename: 'Member'
 }
@@ -81,7 +81,6 @@ export interface LayoutGenqlSelection{
 }
 
 export interface MemberGenqlSelection{
-    active?: boolean | number
     created_at?: boolean | number
     firstName?: boolean | number
     lastName?: boolean | number
@@ -89,6 +88,7 @@ export interface MemberGenqlSelection{
     memberId?: boolean | number
     region?: boolean | number
     roles?: boolean | number
+    status?: boolean | number
     teams?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -102,7 +102,7 @@ export interface MutationGenqlSelection{
     deleteMember?: (MemberGenqlSelection & { __args: {id: Scalars['ID']} })
     deleteTeam?: (TeamGenqlSelection & { __args: {id: Scalars['ID']} })
     updateLayout?: (LayoutGenqlSelection & { __args: {blueprint: Scalars['JSON'][], id: Scalars['ID'], metadata?: (Scalars['JSON'] | null), positions: Scalars['JSON'][]} })
-    updateMember?: (MemberGenqlSelection & { __args: {firstName?: (Scalars['String'] | null), id: Scalars['ID'], lastName?: (Scalars['String'] | null), location?: (Scalars['String'] | null), region?: (Scalars['String'] | null), roles: Scalars['String'][]} })
+    updateMember?: (MemberGenqlSelection & { __args: {firstName?: (Scalars['String'] | null), id: Scalars['ID'], lastName?: (Scalars['String'] | null), location?: (Scalars['String'] | null), region?: (Scalars['String'] | null), roles: Scalars['String'][], status?: (Scalars['String'] | null)} })
     updateTeam?: (TeamGenqlSelection & { __args: {id: Scalars['ID'], leader?: (Scalars['String'] | null), name?: (Scalars['String'] | null)} })
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -110,7 +110,7 @@ export interface MutationGenqlSelection{
 
 export interface QueryGenqlSelection{
     getLayouts?: (LayoutGenqlSelection & { __args?: {sortBy?: (SortOrder | null)} })
-    getMembers?: (MemberGenqlSelection & { __args: {id: Scalars['String']} })
+    getMembers?: (MemberGenqlSelection & { __args: {id: Scalars['String'], sortBy?: (SortOrder | null)} })
     getOneLayout?: (LayoutGenqlSelection & { __args: {id: Scalars['String']} })
     getOneTeam?: (TeamGenqlSelection & { __args: {id: Scalars['String']} })
     getTeams?: (TeamGenqlSelection & { __args?: {sortBy?: (SortOrder | null)} })

@@ -59,47 +59,47 @@ const AddNewMember = ({teamId, refreshFunction} : AddNewMemberProps) => {
             <SheetContent>
                 <form onSubmit={handleSubmit}>
                 <SheetHeader>
-                <SheetTitle>Add New Member</SheetTitle>
-                <SheetDescription>
+                <SheetTitle className="font-poppins">Add New Member</SheetTitle>
+                <SheetDescription className="font-poppins">
                     Fill in the member details below and click Add when you are ready!
                 </SheetDescription>
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="firstName" className="text-right">
+                        <Label htmlFor="firstName" className="text-right font-poppins">
                         First Name
                         </Label>
-                        <Input id="firstName" className="col-span-3" onChange={(e) => setDetails((prev) => {return {...prev, firstName: e.target.value}})}/>
+                        <Input id="firstName" className="col-span-3 font-poppins" onChange={(e) => setDetails((prev) => {return {...prev, firstName: e.target.value}})}/>
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="lastName" className="text-right">
+                        <Label htmlFor="lastName" className="text-right font-poppins">
                         Last Name
                         </Label>
-                        <Input id="lastName" className="col-span-3" onChange={(e) => setDetails((prev) => {return {...prev, lastName: e.target.value}})}/>
+                        <Input id="lastName" className="col-span-3 font-poppins" onChange={(e) => setDetails((prev) => {return {...prev, lastName: e.target.value}})}/>
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="location" className="text-right">
+                        <Label htmlFor="location" className="text-right font-poppins">
                         Primary Campus
                         </Label>
-                        <Input id="location" className="col-span-3" onChange={(e) => setDetails((prev) => {return {...prev, location: e.target.value}})}/>
+                        <Input id="location" className="col-span-3 font-poppins" onChange={(e) => setDetails((prev) => {return {...prev, location: e.target.value}})}/>
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="region" className="text-right">
+                        <Label htmlFor="region" className="text-right font-poppins">
                         Primary Region
                         </Label>
-                        <Input id="region" className="col-span-3" onChange={(e) => setDetails((prev) => {return {...prev, region: e.target.value}})}/>
+                        <Input id="region" className="col-span-3 font-poppins" onChange={(e) => setDetails((prev) => {return {...prev, region: e.target.value}})}/>
                     </div>
                 </div>
                 <SheetFooter>
                 <SheetClose asChild>
-                    <Button type="submit" >Add Member</Button>
+                    <Button className="font-poppins" type="submit" >Add Member</Button>
                 </SheetClose>
                 </SheetFooter>
                 </form>
             </SheetContent>
             </Sheet>
             </div>
-            <p className='text-sm'>
+            <p className='text-sm font-poppins'>
                 Add a new member
             </p>
         </div>

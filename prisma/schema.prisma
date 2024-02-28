@@ -27,7 +27,7 @@ model Members {
   lastName                     String?
   location                     String?
   region                       String?
-  active                       Boolean?
+  status                       String?  @default("new")
   created_at                   DateTime @default(now()) @db.Timestamptz(6)
   teams                        String?  @db.Uuid
   roles                        String[]

@@ -62,7 +62,6 @@ export interface NexusGenObjects {
     positions?: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
   }
   Member: { // root type
-    active?: boolean | null; // Boolean
     created_at?: NexusGenScalars['DateTime'] | null; // DateTime
     firstName?: string | null; // String
     lastName?: string | null; // String
@@ -70,6 +69,7 @@ export interface NexusGenObjects {
     memberId?: string | null; // ID
     region?: string | null; // String
     roles?: Array<string | null> | null; // [String]
+    status?: string | null; // String
     teams?: string | null; // String
   }
   Mutation: {};
@@ -106,7 +106,6 @@ export interface NexusGenFieldTypes {
     positions: Array<NexusGenScalars['JSON'] | null> | null; // [JSON]
   }
   Member: { // field return type
-    active: boolean | null; // Boolean
     created_at: NexusGenScalars['DateTime'] | null; // DateTime
     firstName: string | null; // String
     lastName: string | null; // String
@@ -114,6 +113,7 @@ export interface NexusGenFieldTypes {
     memberId: string | null; // ID
     region: string | null; // String
     roles: Array<string | null> | null; // [String]
+    status: string | null; // String
     teams: string | null; // String
   }
   Mutation: { // field return type
@@ -156,7 +156,6 @@ export interface NexusGenFieldTypeNames {
     positions: 'JSON'
   }
   Member: { // field return type name
-    active: 'Boolean'
     created_at: 'DateTime'
     firstName: 'String'
     lastName: 'String'
@@ -164,6 +163,7 @@ export interface NexusGenFieldTypeNames {
     memberId: 'ID'
     region: 'String'
     roles: 'String'
+    status: 'String'
     teams: 'String'
   }
   Mutation: { // field return type name
@@ -238,6 +238,7 @@ export interface NexusGenArgTypes {
       location?: string | null; // String
       region?: string | null; // String
       roles: string[]; // [String!]!
+      status?: string | null; // String
     }
     updateTeam: { // args
       id: string; // ID!
@@ -251,6 +252,7 @@ export interface NexusGenArgTypes {
     }
     getMembers: { // args
       id: string; // String!
+      sortBy?: NexusGenEnums['SortOrder'] | null; // SortOrder
     }
     getOneLayout: { // args
       id: string; // String!

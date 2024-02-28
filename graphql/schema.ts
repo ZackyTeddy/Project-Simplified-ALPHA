@@ -44,7 +44,8 @@ const Query = queryType({
         t.list.field('getMembers', {
             type: 'Member',
             args: {
-                id: nonNull(stringArg())
+                id: nonNull(stringArg()),
+                sortBy: arg({ type: 'SortOrder'})
             },
             resolve: async (_, args, ctx) => {
                 try {
@@ -182,7 +183,8 @@ const Mutation = mutationType({
                 lastName: stringArg(),
                 location: stringArg(),
                 region: stringArg(),
-                roles: nonNull(list(nonNull(stringArg())))
+                roles: nonNull(list(nonNull(stringArg()))),
+                status: stringArg()
             },
             resolve: (_, args, ctx) => {
                 try {
@@ -193,7 +195,8 @@ const Mutation = mutationType({
                         lastName: args.lastName || undefined,
                         location: args.location || undefined,
                         region: args.region || undefined,
-                        roles: args.roles || null
+                        roles: args.roles || null,
+                        status: args.status || undefined
                     }
                     })
                 } catch (error) {
@@ -307,7 +310,7 @@ const Member = objectType({
         t.string('lastName')
         t.string('location')
         t.string('region')
-        t.boolean('active')
+        t.string('status')
         t.string('teams')
         t.list.string('roles')
         t.DateTime('created_at')

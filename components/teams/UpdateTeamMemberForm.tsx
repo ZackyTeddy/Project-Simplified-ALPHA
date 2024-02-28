@@ -7,11 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Button } from '../ui/button';
-import { TEAM_ROLES } from '@/utils/data';
+import { MEMBER_STATUS, TEAM_ROLES } from '@/utils/data';
 import { Checkbox } from '../ui/checkbox';
 import { Badge } from '../ui/badge';
 import { client } from '@/utils/genqlClient';
 import { KeyedMutator } from 'swr';
+import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 interface UpdateTeamMemberProps extends React.HTMLAttributes<HTMLDivElement> {
     details: any
@@ -23,6 +24,7 @@ const formSchema = z.object({
     lastName: z.string().min(2).max(50),
     location: z.string().min(2).max(50),
     region: z.string().min(2).max(50),
+    status: z.string().min(2).max(50),
     roles: z.string().array()
 })
 
@@ -30,7 +32,6 @@ const formSchema = z.object({
 
 
 const UpdateTeamMemberForm = ({details, refreshFunction} : UpdateTeamMemberProps) => {
-    console.log('details', details)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -38,6 +39,7 @@ const UpdateTeamMemberForm = ({details, refreshFunction} : UpdateTeamMemberProps
             lastName: details.lastName  || "",
             location: details.location || "",
             region: details.region || "",
+            status: details.status || "",
             roles: details.roles || []
         }
     })
@@ -51,6 +53,7 @@ const UpdateTeamMemberForm = ({details, refreshFunction} : UpdateTeamMemberProps
                     location: values.location,
                     region: values.region,
                     roles: values.roles,
+                    status: values.status,
                     id: details.memberId
                 },
                 memberId: true
@@ -65,7 +68,7 @@ const UpdateTeamMemberForm = ({details, refreshFunction} : UpdateTeamMemberProps
     return (
         <div className="grid gap-4 py-4">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
                     <FormField
                     control={form.control}
                     name="firstName"
@@ -128,7 +131,37 @@ const UpdateTeamMemberForm = ({details, refreshFunction} : UpdateTeamMemberProps
                     />
                     <FormField
                     control={form.control}
-                    name="firstName"
+                    name="status"
+                    render={({ field }) => {
+                        return (
+                        <FormItem
+                            className="flex flex-row items-start space-x-4 space-y-0 col-span-1"
+                        >
+                            <FormLabel>Member Status</FormLabel>
+                            <FormControl>
+                                <RadioGroup
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                                className="flex flex-col space-y-1"
+                                >
+                                {MEMBER_STATUS.map((item, key) => (
+                                    <FormItem key={key} className="flex items-center space-x-3 space-y-0">
+                                        <FormControl>
+                                            <RadioGroupItem value={item.status} />
+                                        </FormControl>
+                                        <FormLabel className="font-normal">
+                                        {item.description}
+                                        </FormLabel>
+                                    </FormItem>
+                                ))}
+                                </RadioGroup>
+                            </FormControl>
+                        </FormItem>
+                        )}}
+                    />
+                    <FormField
+                    control={form.control}
+                    name="roles"
                     render={({ field }) => (
                         <FormItem>
                             <div className="grid grid-cols-4 items-center gap-4">

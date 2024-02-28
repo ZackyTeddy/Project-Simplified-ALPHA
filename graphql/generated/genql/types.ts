@@ -4,8 +4,8 @@ export default {
         1,
         3,
         5,
-        6,
-        9
+        8,
+        10
     ],
     "types": {
         "DateTime": {},
@@ -27,53 +27,52 @@ export default {
                 1
             ],
             "__typename": [
-                6
+                5
             ]
         },
         "ID": {},
         "Member": {
-            "active": [
-                5
-            ],
             "created_at": [
                 0
             ],
             "firstName": [
-                6
+                5
             ],
             "lastName": [
-                6
+                5
             ],
             "location": [
-                6
+                5
             ],
             "memberId": [
                 3
             ],
             "region": [
-                6
+                5
             ],
             "roles": [
-                6
+                5
+            ],
+            "status": [
+                5
             ],
             "teams": [
-                6
+                5
             ],
             "__typename": [
-                6
+                5
             ]
         },
-        "Boolean": {},
         "String": {},
         "Mutation": {
             "createLayout": [
                 2,
                 {
                     "location": [
-                        6
+                        5
                     ],
                     "name": [
-                        6,
+                        5,
                         "String!"
                     ]
                 }
@@ -82,39 +81,39 @@ export default {
                 4,
                 {
                     "firstName": [
-                        6,
+                        5,
                         "String!"
                     ],
                     "lastName": [
-                        6
+                        5
                     ],
                     "location": [
-                        6
+                        5
                     ],
                     "region": [
-                        6
+                        5
                     ],
                     "teams": [
-                        6,
+                        5,
                         "String!"
                     ]
                 }
             ],
             "createTeam": [
-                10,
+                9,
                 {
                     "leader": [
-                        6
+                        5
                     ],
                     "location": [
-                        6
+                        5
                     ],
                     "name": [
-                        6,
+                        5,
                         "String!"
                     ],
                     "timeslot": [
-                        6
+                        5
                     ]
                 }
             ],
@@ -137,7 +136,7 @@ export default {
                 }
             ],
             "deleteTeam": [
-                10,
+                9,
                 {
                     "id": [
                         3,
@@ -169,44 +168,47 @@ export default {
                 4,
                 {
                     "firstName": [
-                        6
+                        5
                     ],
                     "id": [
                         3,
                         "ID!"
                     ],
                     "lastName": [
-                        6
+                        5
                     ],
                     "location": [
-                        6
+                        5
                     ],
                     "region": [
-                        6
+                        5
                     ],
                     "roles": [
-                        6,
+                        5,
                         "[String!]!"
+                    ],
+                    "status": [
+                        5
                     ]
                 }
             ],
             "updateTeam": [
-                10,
+                9,
                 {
                     "id": [
                         3,
                         "ID!"
                     ],
                     "leader": [
-                        6
+                        5
                     ],
                     "name": [
-                        6
+                        5
                     ]
                 }
             ],
             "__typename": [
-                6
+                5
             ]
         },
         "Query": {
@@ -214,7 +216,7 @@ export default {
                 2,
                 {
                     "sortBy": [
-                        9
+                        8
                     ]
                 }
             ],
@@ -222,8 +224,11 @@ export default {
                 4,
                 {
                     "id": [
-                        6,
+                        5,
                         "String!"
+                    ],
+                    "sortBy": [
+                        8
                     ]
                 }
             ],
@@ -231,64 +236,65 @@ export default {
                 2,
                 {
                     "id": [
-                        6,
+                        5,
                         "String!"
                     ]
                 }
             ],
             "getOneTeam": [
-                10,
+                9,
                 {
                     "id": [
-                        6,
+                        5,
                         "String!"
                     ]
                 }
             ],
             "getTeams": [
-                10,
+                9,
                 {
                     "sortBy": [
-                        9
+                        8
                     ]
                 }
             ],
             "__typename": [
-                6
+                5
             ]
         },
         "SortOrder": {},
         "Team": {
             "active": [
-                5
+                10
             ],
             "created_at": [
                 0
             ],
             "leader": [
-                6
+                5
             ],
             "location": [
-                6
+                5
             ],
             "members": [
-                6
+                5
             ],
             "name": [
-                6
+                5
             ],
             "region": [
-                6
+                5
             ],
             "team_Id": [
                 3
             ],
             "timeslot": [
-                6
+                5
             ],
             "__typename": [
-                6
+                5
             ]
-        }
+        },
+        "Boolean": {}
     }
 }
