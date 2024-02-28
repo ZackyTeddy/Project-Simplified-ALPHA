@@ -1,19 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center" id="title">Project Simplified ALPHA</h1>
 
-## STACK INFO
+<p id="description">Version 4.0 Project Simplified is church ground control made easy. It is meant to be the combination of the best of PCO's Services and direct integration of layout applications for positioning of team members. It is a passion project made to circumvent and streamline the pain points in setting layout positions.</p>
 
-This app is currently using: 
-- [Next.js] as a [React.js] w/ [Typescript] framework
-- [Supabase] as a [PostgreSQL] Database Provider
-- [PrismaClient] as a toolkit to work around the database 
-- [ApolloServer] as the serverless framework to serve [GraphQL] APIs
+NOTE: This project is purposefully made public and incomplete as to simply showcase skill in the technologies mentioned below.
+      The actual full project is still in active development, as it is after all, a passion project.
+  
+<h2>🧐 Features</h2>
 
+Here're some of the project's best features:
 
+*   TEAMS
+*   LAYOUTS
+*   PLANS
+*   Preference Settings
+*   Dark Mode
+*   FUTURE: ON-FIELD
+*   FUTURE: TAGS AND RULES
 
+  
+  
+<h2>💻 Built with</h2>
 
+Technologies used in the project:
 
-## Deploy on Vercel
+*   React.js
+*   Next.js
+*   GraphQL
+*   PostgreSQL
+*   Prisma
+*   Konva.js
+*   Bun.js
+*   Node.js
+*   Vercel (for Future Deployment)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h2> Public Note </h2>
+This project is made public solely for the purposes of showcasing skills using said technologies.
+It is not to be redistributed or copied as own.
